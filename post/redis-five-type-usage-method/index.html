@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+<!--<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.css" rel="stylesheet">-->
+
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Damion:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '850WOI8N5E',
+      apiKey: 'f4a860b36d596ca79aeb2eba34b78ae7',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="五大类型：">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis五大类型用法">
+<meta property="og:url" content="http://foreverdewey.github.io/post/redis-five-type-usage-method/index.html">
+<meta property="og:site_name" content="Dewey Liu">
+<meta property="og:description" content="五大类型：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==">
+<meta property="og:updated_time" content="2019-04-06T08:31:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis五大类型用法">
+<meta name="twitter:description" content="五大类型：">
+<meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Dewey Liu" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://foreverdewey.github.io/post/redis-five-type-usage-method/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <!--自定义看板娘-->
+<link rel="stylesheet" type="text/css" href="/js/src/live2d/assets/waifu.min.css">
+<script src="/js/src/live2d/assets/jquery.min.js"></script>
+<script src="/js/src/live2d/assets/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/js/src/aplayer/APlayer.min.css">
+<script src="/js/src/aplayer/APlayer.min.js"></script>
+<script src="/js/src/aplayer/Meting.min.js"></script>		
+  <title>redis五大类型用法 | Dewey Liu</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89637345-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89637345-1');
+</script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <!--<a href="https://github.com/DeweyLiu"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>-->
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dewey Liu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-photos">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/photos/" rel="section"><i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br>相册</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://foreverdewey.github.io/post/redis-five-type-usage-method/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dewey Liu">
+      <meta itemprop="description" content="We are all living as faithful to our ideas as children.">
+      <meta itemprop="image" content="/images/d6.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dewey Liu">
+    </span>
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">redis五大类型用法
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-29 12:00:16" itemprop="dateCreated datePublished" datetime="2018-11-29T12:00:16+08:00">2018-11-29</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/post/redis-five-type-usage-method/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/post/redis-five-type-usage-method/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/post/redis-five-type-usage-method/" class="leancloud_visitors" data-flag-title="redis五大类型用法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>五大类型：<br><a id="more"></a></p>
+<div id="cnblogs_post_body" class="blogpost-body"><pre><span style="font-size: 15px; color: #000000;">Redis五大类型:<br>字符串（String）、哈希/散列/字典（Hash）、列表（List）、集合（Set）、有序集合（sorted&nbsp;set）五种<span style="font-size: 15px; color: #000000;"><br>Controller:@Resource RedisTemplate&lt;String, String&gt; redisTemplate;</span><span style="font-size: 15px; color: #000000;"><br>总括:<br>redisTemplate.opsForValue();//操作字符串</span><br>redisTemplate.opsForHash();<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">//操作hash</span></span><br>redisTemplate.opsForList();<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">//操作list</span></span><br>redisTemplate.opsForSet();<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">//操作set</span></span><br>redisTemplate.opsForZSet();<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">//操作有序set<br></span></span><br><br>String:<br></span></pre><br><pre><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">1.redisTemplate.opsForValue().set(key,value)); </span><br><span style="font-size: 15px; color: #000000;">2.redisTemplate</span>.opsForValue().get(key)); <span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><br><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">3.redisTemplate.opsForValue().get(key, start, end);</span></span></span></span></span></span></span></span><br><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">4.redisTemplate.opsForValue()</span></span></span>.getAndSet(key, <span class="string">value);<br>5.redisTemplate.opsForValue().getBit(key, offset);//下方注释<br>6.redisTemplate.opsForValue().multiGet(keys);<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><br>7.redisTemplate.opsForValue().setBit(key, offset, value);//下方注释<br>8.redisTemplate.opsForValue().set(K key, V value, long timeout, TimeUnit unit);//TimeUnit是timeout的类型,如毫秒\秒\天等<br>9.redisTemplate.opsForValue().setIfAbsent(key, value);<br>10.redisTemplate.opsForValue().set(K key, V value, long offset);//博主此处未做java验证</span></span></span></span><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><br><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">11.redisTemplate.opsForValue().size(key));<br>12.redisTemplate.opsForValue().multiGet(Collection&lt;K&gt; keys);<br>13.redisTemplate.opsForValue().multiSetIfAbsent(Map&lt;? extends K, ? extends V&gt; m);<br>14.同8<br>15\16\17\18\19.redisTemplate.opsForValue().increment(K key, long delta);或.increment(K key, double delta);</span></span></span></span></span></span></span></span></span></span></span><br></span><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">20.redisTemplate.opsForValue().append(key, value);//在key键对应值的右面追加值value<br>可以看到并没有删除等方法,博主研究了一下可以这样:21.del key——21.redisTemplate.opsForValue().getOperations().delete(key);<br style="font-size: 15px; color: #000000;"><br></span></span></span></span></pre><br><table style="width: 588px; height: 420px;"><br><thead><br><tr><th>&nbsp;<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">编号</span></span></span></span></th><th>命令</th><th>描述说明</th></tr><br></thead><br><tbody><br><tr><br><td>1</td><br><td><a title="SET key value" href="http://www.yiibai.com/redis/strings_set.html" target="_blank" rel="noopener">SET key value</a></td><br><td>此命令设置指定键的值。</td><br></tr><br><tr><br><td>2</td><br><td><a title="GET key" href="http://www.yiibai.com/redis/strings_get.html" target="_blank" rel="noopener">GET key</a></td><br><td>获取指定键的值。</td><br></tr><br><tr><br><td>3</td><br><td><a title="GETRANGE key start end" href="http://www.yiibai.com/redis/strings_getrange.html" target="_blank" rel="noopener">GETRANGE key start end</a></td><br><td>获取存储在键上的字符串的子字符串。</td><br></tr><br><tr><br><td>4</td><br><td><a title="GETSET key value" href="http://www.yiibai.com/redis/strings_getset.html" target="_blank" rel="noopener">GETSET key value</a></td><br><td>设置键的字符串值并返回其旧值。</td><br></tr><br><tr><br><td>5</td><br><td><a title="GETBIT key offset" href="http://www.yiibai.com/redis/strings_getbit.html" target="_blank" rel="noopener">GETBIT key offset</a></td><br><td>返回在键处存储的字符串值中偏移处的位值。</td><br></tr><br><tr><br><td>6</td><br><td><a title="MGET key1 [key2..]" href="http://www.yiibai.com/redis/strings_mget.html" target="_blank" rel="noopener">MGET key1 [key2..]</a></td><br><td>获取所有给定键的值</td><br></tr><br><tr><br><td>7</td><br><td><a title="SETBIT key offset value" href="http://www.yiibai.com/redis/strings_setbit.html" target="_blank" rel="noopener">SETBIT key offset value</a></td><br><td>存储在键上的字符串值中设置或清除偏移处的位</td><br></tr><br><tr><br><td>8</td><br><td><a title="SETEX key seconds value" href="http://www.yiibai.com/redis/strings_setex.html" target="_blank" rel="noopener">SETEX key seconds value</a></td><br><td>使用键和到期时间来设置值</td><br></tr><br><tr><br><td>9</td><br><td><a title="SETNX key value" href="http://www.yiibai.com/redis/strings_setnx.html" target="_blank" rel="noopener">SETNX key value</a></td><br><td>设置键的值，仅当键不存在时</td><br></tr><br><tr><br><td>10</td><br><td><a title="SETRANGE key offset value" href="http://www.yiibai.com/redis/strings_setrange.html" target="_blank" rel="noopener">SETRANGE key offset value</a></td><br><td>在指定偏移处开始的键处覆盖字符串的一部分</td><br></tr><br><tr><br><td>11</td><br><td><a title="STRLEN key" href="http://www.yiibai.com/redis/strings_strlen.html" target="_blank" rel="noopener">STRLEN key</a></td><br><td>获取存储在键中的值的长度</td><br></tr><br><tr><br><td>12</td><br><td><a title="MSET key value [key value ...]" href="http://www.yiibai.com/redis/strings_mset.html" target="_blank" rel="noopener">MSET key value [key value …]</a></td><br><td>为多个键分别设置它们的值</td><br></tr><br><tr><br><td>13</td><br><td><a title="MSETNX key value [key value ...]" href="http://www.yiibai.com/redis/strings_msetnx.html" target="_blank" rel="noopener">MSETNX key value [key value …]</a></td><br><td>为多个键分别设置它们的值，仅当键不存在时</td><br></tr><br><tr><br><td>14</td><br><td><a title="PSETEX key milliseconds value" href="http://www.yiibai.com/redis/strings_psetex.html" target="_blank" rel="noopener">PSETEX key milliseconds value</a></td><br><td>设置键的值和到期时间(以毫秒为单位)</td><br></tr><br><tr><br><td>15</td><br><td><a title="INCR key" href="http://www.yiibai.com/redis/strings_incr.html" target="_blank" rel="noopener">INCR key</a></td><br><td>将键的整数值增加<code>1</code></td><br></tr><br><tr><br><td>16</td><br><td><a title="INCRBY key increment" href="http://www.yiibai.com/redis/strings_incrby.html" target="_blank" rel="noopener">INCRBY key increment</a></td><br><td>将键的整数值按给定的数值增加</td><br></tr><br><tr><br><td>17</td><br><td><a title="INCRBYFLOAT key increment" href="http://www.yiibai.com/redis/strings_incrbyfloat.html" target="_blank" rel="noopener">INCRBYFLOAT key increment</a></td><br><td>将键的浮点值按给定的数值增加</td><br></tr><br><tr><br><td>18</td><br><td><a title="DECR key" href="http://www.yiibai.com/redis/strings_decr.html" target="_blank" rel="noopener">DECR key</a></td><br><td>将键的整数值减<code>1</code></td><br></tr><br><tr><br><td>19</td><br><td><a title="DECRBY key decrement" href="http://www.yiibai.com/redis/strings_decrby.html" target="_blank" rel="noopener">DECRBY key decrement</a></td><br><td>按给定数值减少键的整数值</td><br></tr><br><tr><br><td>20</td><br><td><a title="APPEND key value" href="http://www.yiibai.com/redis/strings_append.html" target="_blank" rel="noopener">APPEND key value</a></td><br><td>将指定值附加到键</td><br></tr><br></tbody><br></table><br><pre><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">.setBit(key, offset, value):key键对应的值value对应的ascii码,在offset的位置(从左向右数)变为value.(此处感谢<a href="http://blog.csdn.net/hgd613/article/details/54095729" target="_blank">@参考文章</a>对我理解的帮助),由于二进制只有0和1,此处value只能取0和1,如图,其他值是超出范围的<br>.getBit(key, offset):获取键对应值的ascii码的在offset处位值.<br><a href="http://baike.baidu.com/link?url=hFE0BW6q93N2OGtcRV_ynPJ2LejPUatY1tZvKH_oULO04YeQwwJatKduQe6dyeDBJV1s2CFcYoeFPMHGoUnYO_" target="_blank">@ascii码对照表</a><br><br></span></span></span></span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://images2015.cnblogs.com/blog/1116057/201703/1116057-20170325161238690-289853671.png" alt=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://images2015.cnblogs.com/blog/1116057/201703/1116057-20170325161834393-31223536.png" alt=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://images2015.cnblogs.com/blog/1116057/201703/1116057-20170325162156596-1955722327.png" alt=""></span></pre><br><p>&nbsp;</p><br><p>&nbsp;</p><br><pre><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">Hash:<br></span></span></span></span></pre><br><pre><span style="font-size: 15px; color: #000000;">1.redisTemplate.opsForHash().delete(H key, Object… hashKeys);//…表示可以传入多个map的key，用，隔开。或用数组传值<br><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">2.redisTemplate.opsForHash().hasKey(key, hashKey)；<br>3.redisTemplate.opsForHash().get(key, hashKey)；<br>4.redisTemplate.opsForHash().entries(key);//返回map集合<br>5、6.redisTemplate.opsForHash().increment(H key, HK hashKey, long delta);//或increment(H key, HK hashKey, double delta);；<br>7.redisTemplate.opsForHash().keys(key)；//返回map的key集合Set<br>8.redisTemplate.opsForHash().size(key)；<br>9.redisTemplate.opsForHash().multiGet(H key, Collection&lt;HK&gt; hashKeys);<br>10.redisTemplate.opsForHash().putAll(H key, Map&lt;? extends HK, ? extends HV&gt; m)；<br>11.redisTemplate.opsForHash().put(key, hashKey, value);<br>12.redisTemplate.opsForHash().putIfAbsent(key, hashKey, value)；<br>13.<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">redisTemplate.opsForHash().values(key);//返回map中的value集合List</span></span></span></span>；</span></span></span></span></pre><br><table><br><thead><br><tr><th><span style="font-size: 15px; color: #000000;">序号</span>&nbsp;</th><th>命令</th><th>说明</th></tr><br></thead><br><tbody><br><tr><br><td>1</td><br><td><a title="HDEL key field2 [field2]" href="http://www.yiibai.com/redis/hashes_hdel.html" target="_blank" rel="noopener">HDEL key field2 [field2]</a></td><br><td>删除一个或多个哈希字段。</td><br></tr><br><tr><br><td>2</td><br><td><a title="HEXISTS key field" href="http://www.yiibai.com/redis/hashes_hexists.html" target="_blank" rel="noopener">HEXISTS key field</a></td><br><td>判断是否存在散列字段。</td><br></tr><br><tr><br><td>3</td><br><td><a title="HGET key field" href="http://www.yiibai.com/redis/hashes_hget.html" target="_blank" rel="noopener">HGET key field</a></td><br><td>获取存储在指定键的哈希字段的值。</td><br></tr><br><tr><br><td>4</td><br><td><a title="HGETALL key" href="http://www.yiibai.com/redis/hashes_hgetall.html" target="_blank" rel="noopener">HGETALL key</a></td><br><td>获取存储在指定键的哈希中的所有字段和值</td><br></tr><br><tr><br><td>5</td><br><td><a title="HINCRBY key field increment" href="http://www.yiibai.com/redis/hashes_hincrby.html" target="_blank" rel="noopener">HINCRBY key field increment</a></td><br><td>将哈希字段的整数值按给定数字增加</td><br></tr><br><tr><br><td>6</td><br><td><a title="HINCRBYFLOAT key field increment" href="http://www.yiibai.com/redis/hashes_hincrbyfloat.html" target="_blank" rel="noopener">HINCRBYFLOAT key field increment</a></td><br><td>将哈希字段的浮点值按给定数值增加</td><br></tr><br><tr><br><td>7</td><br><td><a title="HKEYS key" href="http://www.yiibai.com/redis/hashes_hkeys.html" target="_blank" rel="noopener">HKEYS key</a></td><br><td>获取哈希中的所有字段</td><br></tr><br><tr><br><td>8</td><br><td><a title="HLEN key" href="http://www.yiibai.com/redis/hashes_hlen.html" target="_blank" rel="noopener">HLEN key</a></td><br><td>获取散列中的字段数量</td><br></tr><br><tr><br><td>9</td><br><td><a title="HMGET key field1 [field2]" href="http://www.yiibai.com/redis/hashes_hmget.html" target="_blank" rel="noopener">HMGET key field1 [field2]</a></td><br><td>获取所有给定哈希字段的值</td><br></tr><br><tr><br><td>10</td><br><td><a title="HMSET key field1 value1 [field2 value2 ]" href="http://www.yiibai.com/redis/hashes_hmset.html" target="_blank" rel="noopener">HMSET key field1 value1 [field2 value2 ]</a></td><br><td>为多个哈希字段分别设置它们的值</td><br></tr><br><tr><br><td>11</td><br><td><a title="HSET key field value" href="http://www.yiibai.com/redis/hashes_hset.html" target="_blank" rel="noopener">HSET key field value</a></td><br><td>设置散列字段的字符串值</td><br></tr><br><tr><br><td>12</td><br><td><a title="HSETNX key field value" href="http://www.yiibai.com/redis/hashes_hsetnx.html" target="_blank" rel="noopener">HSETNX key field value</a></td><br><td>仅当字段不存在时，才设置散列字段的值</td><br></tr><br><tr><br><td>13</td><br><td><a title="HVALS key" href="http://www.yiibai.com/redis/hashes_hvals.html" target="_blank" rel="noopener">HVALS key</a></td><br><td>获取哈希中的所有值</td><br></tr><br></tbody><br></table><br><pre><span style="font-size: 15px; color: #000000;">List：<br><br>redisTemplate.opsForList().leftPush(key,&nbsp;value);//从左向右存压栈<br>redisTemplate.opsForList().leftPop(key);//从左出栈<br>redisTemplate.opsForList().size(key);//队/栈长<br>redisTemplate.opsForList().range(key,&nbsp;start,&nbsp;end);//范围检索,返回List<br>redisTemplate.opsForList().remove(key,&nbsp;i,&nbsp;value);//移除key中值为value的i个,<span class="comment">返回删除的个数；如果没有这个元素则返回0 <br>redisTemplate.opsForList().index(key,&nbsp;index);//检索<br>redisTemplate.opsForList().set(key,&nbsp;index,&nbsp;value);//赋值<br>redisTemplate.opsForList().trim(key,&nbsp;start,&nbsp;end);//裁剪,void,<span class="comment">删除除了[start,end]以外的所有元素&nbsp; <br>redisTemplate.opsForList().rightPopAndLeftPush(String sourceKey, String destinationKey);//<span class="comment">将源key的队列的右边的一个值删除，然后塞入目标key的队列的左边，返回这个值<br><span style="font-size: 15px; color: #000000;">注意:要缓存的对象必须实现Serializable接口,因为 Spring 会将对象先序列化再存入 Redis,否则报异常nested exception is java.lang.IllegalArgumentException: DefaultSerializer requires a Serializable……//；；/<br><br></span></span></span></span></span></pre><br><table><br><thead><br><tr><th><span style="font-size: 15px; color: #000000;"><span class="comment"><span class="comment"><span class="comment"><span style="font-size: 15px; color: #000000;">序号</span></span></span></span></span>&nbsp;</th><th>命令</th><th>说明</th></tr><br></thead><br><tbody><br><tr><br><td>1</td><br><td><a title="BLPOP key1 [key2 ] timeout" href="http://www.yiibai.com/redis/lists_blpop.html" target="_blank" rel="noopener">BLPOP key1 [key2 ] timeout</a></td><br><td>删除并获取列表中的第一个元素，或阻塞，直到有一个元素可用</td><br></tr><br><tr><br><td>2</td><br><td><a title="BRPOP key1 [key2 ] timeout" href="http://www.yiibai.com/redis/lists_brpop.html" target="_blank" rel="noopener">BRPOP key1 [key2 ] timeout</a></td><br><td>删除并获取列表中的最后一个元素，或阻塞，直到有一个元素可用</td><br></tr><br><tr><br><td>3</td><br><td><a title="BRPOPLPUSH source destination timeout" href="http://www.yiibai.com/redis/lists_brpoplpush.html" target="_blank" rel="noopener">BRPOPLPUSH source destination timeout</a></td><br><td>从列表中弹出值，将其推送到另一个列表并返回它; 或阻塞，直到一个可用</td><br></tr><br><tr><br><td>4</td><br><td><a title="LINDEX key index" href="http://www.yiibai.com/redis/lists_lindex.html" target="_blank" rel="noopener">LINDEX key index</a></td><br><td>通过其索引从列表获取元素</td><br></tr><br><tr><br><td>5</td><br><td><a title="LINSERT key BEFORE/AFTER pivot value" href="http://www.yiibai.com/redis/lists_linsert.html" target="_blank" rel="noopener">LINSERT key BEFORE/AFTER pivot value</a></td><br><td>在列表中的另一个元素之前或之后插入元素</td><br></tr><br><tr><br><td>6</td><br><td><a title="LLEN key" href="http://www.yiibai.com/redis/lists_llen.html" target="_blank" rel="noopener">LLEN key</a></td><br><td>获取列表的长度</td><br></tr><br><tr><br><td>7</td><br><td><a title="LPOP key" href="http://www.yiibai.com/redis/lists_lpop.html" target="_blank" rel="noopener">LPOP key</a></td><br><td>删除并获取列表中的第一个元素</td><br></tr><br><tr><br><td>8</td><br><td><a title="LPUSH key value1 [value2]" href="http://www.yiibai.com/redis/lists_lpush.html" target="_blank" rel="noopener">LPUSH key value1 [value2]</a></td><br><td>将一个或多个值添加到列表</td><br></tr><br><tr><br><td>9</td><br><td><a title="LPUSHX key value" href="http://www.yiibai.com/redis/lists_lpushx.html" target="_blank" rel="noopener">LPUSHX key value</a></td><br><td>仅当列表存在时，才向列表添加值</td><br></tr><br><tr><br><td>10</td><br><td><a title="LRANGE key start stop" href="http://www.yiibai.com/redis/lists_lrange.html" target="_blank" rel="noopener">LRANGE key start stop</a></td><br><td>从列表中获取一系列元素</td><br></tr><br><tr><br><td>11</td><br><td><a title="LREM key count value" href="http://www.yiibai.com/redis/lists_lrem.html" target="_blank" rel="noopener">LREM key count value</a></td><br><td>从列表中删除元素</td><br></tr><br><tr><br><td>12</td><br><td><a title="LSET key index value" href="http://www.yiibai.com/redis/lists_lset.html" target="_blank" rel="noopener">LSET key index value</a></td><br><td>通过索引在列表中设置元素的值</td><br></tr><br><tr><br><td>13</td><br><td><a title="LTRIM key start stop" href="http://www.yiibai.com/redis/lists_ltrim.html" target="_blank" rel="noopener">LTRIM key start stop</a></td><br><td>修剪列表的指定范围</td><br></tr><br><tr><br><td>14</td><br><td><a title="RPOP key" href="http://www.yiibai.com/redis/lists_rpop.html" target="_blank" rel="noopener">RPOP key</a></td><br><td>删除并获取列表中的最后一个元素</td><br></tr><br><tr><br><td>15</td><br><td><a title="RPOPLPUSH source destination" href="http://www.yiibai.com/redis/lists_rpoplpush.html" target="_blank" rel="noopener">RPOPLPUSH source destination</a></td><br><td>删除列表中的最后一个元素，将其附加到另一个列表并返回</td><br></tr><br><tr><br><td>16</td><br><td><a title="RPUSH key value1 [value2]" href="http://www.yiibai.com/redis/lists_rpush.html" target="_blank" rel="noopener">RPUSH key value1 [value2]</a></td><br><td>将一个或多个值附加到列表</td><br></tr><br><tr><br><td>17</td><br><td><a title="RPUSHX key value" href="http://www.yiibai.com/redis/lists_rpushx.html" target="_blank" rel="noopener">RPUSHX key value</a></td><br><td>仅当列表存在时才将值附加到列表</td><br></tr><br></tbody><br></table><br><pre><span style="font-size: 15px; color: #000000;"><span class="comment"><span class="comment"><span class="comment"><span style="font-size: 15px; color: #000000;"><br>Set：<br></span></span></span></span></span></pre><br><pre><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><br>redisTemplate.opsForValue().getAndSet(key, value)<br><br></span></span></span></span></pre><br><table><br><thead><br><tr><th>&nbsp;<span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">序号</span></span></span></span></th><th>命令</th><th>说明</th></tr><br></thead><br><tbody><br><tr><br><td>1</td><br><td><a title="SADD key member1 [member2]" href="http://www.yiibai.com/redis/sets_sadd.html" target="_blank" rel="noopener">SADD key member1 [member2]</a></td><br><td>将一个或多个成员添加到集合</td><br></tr><br><tr><br><td>2</td><br><td><a title="SCARD key" href="http://www.yiibai.com/redis/sets_scard.html" target="_blank" rel="noopener">SCARD key</a></td><br><td>获取集合中的成员数</td><br></tr><br><tr><br><td>3</td><br><td><a title="SDIFF key1 [key2]" href="http://www.yiibai.com/redis/sets_sdiff.html" target="_blank" rel="noopener">SDIFF key1 [key2]</a></td><br><td>减去多个集合</td><br></tr><br><tr><br><td>4</td><br><td><a title="SDIFFSTORE destination key1 [key2]" href="http://www.yiibai.com/redis/sets_sdiffstore.html" target="_blank" rel="noopener">SDIFFSTORE destination key1 [key2]</a></td><br><td>减去多个集并将结果集存储在键中</td><br></tr><br><tr><br><td>5</td><br><td><a title="SINTER key1 [key2]" href="http://www.yiibai.com/redis/sets_sinter.html" target="_blank" rel="noopener">SINTER key1 [key2]</a></td><br><td>相交多个集合</td><br></tr><br><tr><br><td>6</td><br><td><a title="SINTERSTORE destination key1 [key2]" href="http://www.yiibai.com/redis/sets_sinterstore.html" target="_blank" rel="noopener">SINTERSTORE destination key1 [key2]</a></td><br><td>交叉多个集合并将结果集存储在键中</td><br></tr><br><tr><br><td>7</td><br><td><a title="SISMEMBER key member" href="http://www.yiibai.com/redis/sets_sismember.html" target="_blank" rel="noopener">SISMEMBER key member</a></td><br><td>判断确定给定值是否是集合的成员</td><br></tr><br><tr><br><td>8</td><br><td><a title="SMOVE source destination member" href="http://www.yiibai.com/redis/sets_smove.html" target="_blank" rel="noopener">SMOVE source destination member</a></td><br><td>将成员从一个集合移动到另一个集合</td><br></tr><br><tr><br><td>9</td><br><td><a title="SPOP key" href="http://www.yiibai.com/redis/sets_spop.html" target="_blank" rel="noopener">SPOP key</a></td><br><td>从集合中删除并返回随机成员</td><br></tr><br><tr><br><td>10</td><br><td><a title="SRANDMEMBER key [count]" href="http://www.yiibai.com/redis/sets_srandmember.html" target="_blank" rel="noopener">SRANDMEMBER key [count]</a></td><br><td>从集合中获取一个或多个随机成员</td><br></tr><br><tr><br><td>11</td><br><td><a title="SREM key member1 [member2]" href="http://www.yiibai.com/redis/sets_srem.html" target="_blank" rel="noopener">SREM key member1 [member2]</a></td><br><td>从集合中删除一个或多个成员</td><br></tr><br><tr><br><td>12</td><br><td><a title="SUNION key1 [key2]" href="http://www.yiibai.com/redis/sets_sunion.html" target="_blank" rel="noopener">SUNION key1 [key2]</a></td><br><td>添加多个集合</td><br></tr><br><tr><br><td>13</td><br><td><a title="SUNIONSTORE destination key1 [key2]" href="http://www.yiibai.com/redis/sets_sunionstore.html" target="_blank" rel="noopener">SUNIONSTORE destination key1 [key2]</a></td><br><td>添加多个集并将结果集存储在键中</td><br></tr><br><tr><br><td>14</td><br><td><a title="SSCAN key cursor [MATCH pattern] [COUNT count]" href="http://www.yiibai.com/redis/sets_sscan.html" target="_blank" rel="noopener">SSCAN key cursor [MATCH pattern] [COUNT count]</a></td><br><td>递增地迭代集合中的元素</td><br></tr><br></tbody><br></table><br><pre><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;"><span style="font-size: 15px; color: #000000;">&nbsp;</span></span></span></span></pre><br><pre><span style="font-size: 15px; color: #000000;"><span class="comment"><span class="comment"><span class="comment"><span style="font-size: 15px; color: #000000;">&nbsp;艾玛，太累了，写着写着发现不用这么麻烦，看到文章中的表了吗？若在java中找不到相应方法就对照表中的一些”字段“在java中找，肯定能找到，而且基本不会浪费多少时间。关于List与Set万能的后人补充吧！<br></span></span></span></span></span></pre></div>
+
+<p>转自：<a href="https://www.cnblogs.com/yanan7890/p/6617305.html" target="_blank" rel="noopener">https://www.cnblogs.com/yanan7890/p/6617305.html</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+      
+    </div>
+    <div>
+      
+        
+
+      
+    </div>
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>我们都像孩子一样忠实的为自己的想法而活着！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Dewey Liu 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Dewey Liu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/Nginx-Basic-Principles/" rel="next" title="nginx 基本原理与配置">
+                <i class="fa fa-chevron-left"></i> nginx 基本原理与配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/dev-pro-fat-env-diff/" rel="prev" title="开发环境、生产环境、测试环境的基本理解和区别">
+                开发环境、生产环境、测试环境的基本理解和区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/d6.gif" alt="Dewey Liu">
+            
+              <p class="site-author-name" itemprop="name">Dewey Liu</p>
+              <p class="site-description motion-element" itemprop="description">We are all living as faithful to our ideas as children.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/DeweyLiu" title="GitHub &rarr; https://github.com/DeweyLiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/y759962464" title="Weibo &rarr; https://weibo.com/y759962464" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://instagram.com/dewey_liu" title="Instagram &rarr; https://instagram.com/dewey_liu" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dewey Liu</span>
+
+  
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a></div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+  
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+<!---->
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/jquery-lazyload@1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+<script src="/js/src/photoswipe.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'MJFl34UId7bERw6zMfY64eBv-MdYXbMMI',
+        appKey: 'SBcM2bkz8gFfwQyp0fnjN7wV',
+        placeholder: 'Just go go',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=6.6.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=6.6.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script> -->
+  <script type="text/javascript" src="/js/src/click.js"></script>
+  <div class="waifu">
+        <div class="waifu-tips"></div>
+        <canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-home"></span>
+            <span class="fui-chat"></span>
+            <span class="fui-eye"></span>
+            <span class="fui-user"></span>
+            <span class="fui-photo"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cross"></span>
+        </div>
+    </div>
+    
+<script src="/js/src/live2d/assets/waifu-tips.min.js"></script>
+<script src="/js/src/live2d/assets/live2d.min.js"></script>
+
+<script type="text/javascript">
+   // live2d_settings['hitokotoAPI'] = 'hitokoto.cn';
+    live2d_settings['modelId'] = 1;
+    live2d_settings['modelTexturesId'] = 53;
+    live2d_settings['modelStorage'] = false;
+    live2d_settings['canCloseLive2d'] = true;
+    live2d_settings['canTurnToHomePage'] = false;
+   // live2d_settings['waifuSize'] = '600x535';
+    live2d_settings['waifuTipsSize'] = '280x80';
+    live2d_settings['waifuFontSize'] = '12px';
+    live2d_settings['waifuToolFont'] = '16px';
+    live2d_settings['waifuToolLine'] = '25px';
+    live2d_settings['waifuToolTop'] = '0px';
+    live2d_settings['waifuDraggable'] = 'axis-x';
+    live2d_settings['waifuEdgeSide']  = "right:30";
+    initModel("/js/src/live2d/assets/waifu-tips.json")
+</script>
+
+<script>!function(o){var i=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function c(t,e){var n=new Image,o=t.getAttribute("data-original");n.onload=function(){t.src=o,e&&e()},n.src=o}function n(){for(var t=0;t<i.length;t++)e=i[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(o.innerHeight||document.documentElement.clientHeight)&&c(i[t],function(){i.splice(t,t)});var e,n;console.log("trigger")}n(),o.addEventListener("scroll",function(){var t,e;t=n,e=o,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

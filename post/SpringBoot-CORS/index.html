@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+<!--<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.css" rel="stylesheet">-->
+
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Damion:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '850WOI8N5E',
+      apiKey: 'f4a860b36d596ca79aeb2eba34b78ae7',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一、基本介绍简单来说，CORS 是一种访问机制，英文全称是 Cross-Origin Resource Sharing，即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到 Access-Control-Allow-Origin 即可。">
+<meta name="keywords" content="SpringBoot,java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot 实现前后端分离的跨域访问（CORS）">
+<meta property="og:url" content="http://foreverdewey.github.io/post/SpringBoot-CORS/index.html">
+<meta property="og:site_name" content="Dewey Liu">
+<meta property="og:description" content="一、基本介绍简单来说，CORS 是一种访问机制，英文全称是 Cross-Origin Resource Sharing，即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到 Access-Control-Allow-Origin 即可。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-25T16:07:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot 实现前后端分离的跨域访问（CORS）">
+<meta name="twitter:description" content="一、基本介绍简单来说，CORS 是一种访问机制，英文全称是 Cross-Origin Resource Sharing，即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到 Access-Control-Allow-Origin 即可。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Dewey Liu" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://foreverdewey.github.io/post/SpringBoot-CORS/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <!--自定义看板娘-->
+<link rel="stylesheet" type="text/css" href="/js/src/live2d/assets/waifu.min.css">
+<script src="/js/src/live2d/assets/jquery.min.js"></script>
+<script src="/js/src/live2d/assets/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/js/src/aplayer/APlayer.min.css">
+<script src="/js/src/aplayer/APlayer.min.js"></script>
+<script src="/js/src/aplayer/Meting.min.js"></script>		
+  <title>SpringBoot 实现前后端分离的跨域访问（CORS） | Dewey Liu</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89637345-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89637345-1');
+</script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <!--<a href="https://github.com/DeweyLiu"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>-->
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dewey Liu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-photos">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/photos/" rel="section"><i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br>相册</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://foreverdewey.github.io/post/SpringBoot-CORS/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dewey Liu">
+      <meta itemprop="description" content="We are all living as faithful to our ideas as children.">
+      <meta itemprop="image" content="/images/d6.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dewey Liu">
+    </span>
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">SpringBoot 实现前后端分离的跨域访问（CORS）
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-02 20:48:52" itemprop="dateCreated datePublished" datetime="2018-07-02T20:48:52+08:00">2018-07-02</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/post/SpringBoot-CORS/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/post/SpringBoot-CORS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/post/SpringBoot-CORS/" class="leancloud_visitors" data-flag-title="SpringBoot 实现前后端分离的跨域访问（CORS）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h4><p>简单来说，CORS 是一种访问机制，英文全称是 Cross-Origin Resource Sharing，即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到 Access-Control-Allow-Origin 即可。<br><a id="more"></a></p>
+<h5 id="CORS-工作原理"><a href="#CORS-工作原理" class="headerlink" title="CORS 工作原理"></a>CORS 工作原理</h5><p>CORS 实现跨域访问并不是一蹴而就的，需要借助浏览器的支持，从原理题图我们可以清楚看到，简单的请求（通常指 GET/POST/HEAD 方式，并没有去增加额外的请求头信息）直接创建了跨域请求的 XHR 对象，而复杂的请求则要求先发送一个” 预检” 请求，待服务器批准后才能真正发起跨域访问请求。</p>
+<p>根据官方文档 W3C 规范 - CORS 的描述，目前 CORS 使用了如下头部信息：</p>
+<p>注：请求头信息由浏览器检测到跨域自动添加，无需过多干预，重点放在 Response headers，它可以帮助我们在服务器进行跨域授权，例如允许哪些原始域可放行，是否需要携带 Cookie 信息等。</p>
+<h5 id="Request-Headers（请求头）"><a href="#Request-Headers（请求头）" class="headerlink" title="Request Headers（请求头）"></a>Request Headers（请求头）</h5><p>Origin</p>
+<p>表示跨域请求的原始域。<br>Access-Control-Request-Method<br>表示跨域请求的方式。（如 GET/POST）<br>Access-Control-Request-Headers<br>表示跨域请求的请求头信息。</p>
+<h5 id="Response-headers（响应头-）"><a href="#Response-headers（响应头-）" class="headerlink" title="Response headers（响应头 ）"></a>Response headers（响应头 ）</h5><p>Access-Control-Allow-Origin<br>表示允许哪些原始域进行跨域访问。（字符数组）<br>Access-Control-Allow-Credentials<br>表示是否允许客户端获取用户凭据。（布尔类型）<br>使用场景：例如现在从浏览器发起跨域请求，并且要附带 Cookie 信息给服务器。则必须具备两个条件：1. 浏览器端：发送 AJAX 请求前需设置通信对象 XHR 的 withCredentials 属性为 true。 2. 服务器端：设置 Access-Control-Allow-Credentials 为 true。两个条件缺一不可，否则即使服务器同意发送 Cookie，浏览器也无法获取。正确姿势如下：</p>
+<p>Access-Control-Allow-Methods<br>表示跨域请求的方式的允许范围。（例如只授权 GET/POST）<br>Access-Control-Allow-Headers<br>表示跨域请求的头部的允许范围。<br>Access-Control-Expose-Headers<br>表示暴露哪些头部信息，并提供给客户端。（因为基于安全考虑，如果没有设置额外的暴露，跨域的通信对象 XMLHttpRequest 只能获取标准的头部信息）<br>Access-Control-Max-Age<br>表示预检请求 [Preflight Request] 的最大缓存时间。</p>
+<h4 id="CORS-实现跨域访问"><a href="#CORS-实现跨域访问" class="headerlink" title="CORS 实现跨域访问"></a>CORS 实现跨域访问</h4><p>授权方式<br>方式 1：返回新的 CorsFilter<br>方式 2：重写 WebMvcConfigurer<br>方式 3：使用注解（@CrossOrigin）<br>方式 4：手工设置响应头（HttpServletResponse ）<br>注：CorsFilter / WebMvcConfigurer / @CrossOrigin 需要 SpringMVC 4.2 以上的版本才支持，对应 SpringBoot 1.3 版本以上都支持这些 CORS 特性。不过，使用 SpringMVC4.2 以下版本的小伙伴也不用慌，直接使用方式 4 通过手工添加响应头来授权 CORS 跨域访问也是可以的。附：在 SpringBoot 1.2.8 + SpringMVC 4.1.9 亲测成功。</p>
+<p>注：方式 1 和方式 2 属于全局 CORS 配置，方式 3 和方式 4 属于局部 CORS 配置。如果使用了局部跨域是会覆盖全局跨域的规则，所以可以通过 @CrossOrigin 注解来进行细粒度更高的跨域资源控制。</p>
+<h5 id="返回新的-CorsFilter（全局跨域）"><a href="#返回新的-CorsFilter（全局跨域）" class="headerlink" title="返回新的 CorsFilter（全局跨域）"></a>返回新的 CorsFilter（全局跨域）</h5><p>在任意配置类，返回一个新的 CorsFilter Bean，并添加映射路径和具体的 CORS 配置信息。</p>
+<pre><code>package com.hehe.yyweb.config;
+
+@Configuration
+public class GlobalCorsConfig {
+    @Bean
+    public CorsFilter corsFilter() {
+        //1.添加CORS配置信息
+        CorsConfiguration config = new CorsConfiguration();
+          //放行哪些原始域
+          config.addAllowedOrigin(&quot;*&quot;);
+          //是否发送Cookie信息
+          config.setAllowCredentials(true);
+          //放行哪些原始域(请求方式)
+          config.addAllowedMethod(&quot;*&quot;);
+          //放行哪些原始域(头部信息)
+          config.addAllowedHeader(&quot;*&quot;);
+          //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+          config.addExposedHeader(&quot;*&quot;);
+
+        //2.添加映射路径
+        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+        configSource.registerCorsConfiguration(&quot;/**&quot;, config);
+
+        //3.返回新的CorsFilter.
+        return new CorsFilter(configSource);
+    }
+}
+</code></pre><h5 id="重写-WebMvcConfigurer（全局跨域）"><a href="#重写-WebMvcConfigurer（全局跨域）" class="headerlink" title="重写 WebMvcConfigurer（全局跨域）"></a>重写 WebMvcConfigurer（全局跨域）</h5><p>在任意配置类，返回一个新的 WebMvcConfigurer Bean，并重写其提供的跨域请求处理的接口，目的是添加映射路径和具体的 CORS 配置信息。</p>
+<pre><code>package com.hehe.yyweb.config;
+
+@Configuration
+public class GlobalCorsConfig {
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            //重写父类提供的跨域请求处理的接口
+            public void addCorsMappings(CorsRegistry registry) {
+                //添加映射路径
+                registry.addMapping(&quot;/**&quot;)
+                        //放行哪些原始域
+                        .allowedOrigins(&quot;*&quot;)
+                        //是否发送Cookie信息
+                        .allowCredentials(true)
+                        //放行哪些原始域(请求方式)
+                        .allowedMethods(&quot;GET&quot;,&quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;)
+                        //放行哪些原始域(头部信息)
+                        .allowedHeaders(&quot;*&quot;)
+                        //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+                        .exposedHeaders(&quot;Header1&quot;, &quot;Header2&quot;);
+            }
+        };
+    }
+}
+</code></pre><h5 id="使用注解（局部跨域）"><a href="#使用注解（局部跨域）" class="headerlink" title="使用注解（局部跨域）"></a>使用注解（局部跨域）</h5><p>在方法上（@RequestMapping）使用注解 @CrossOrigin ：</p>
+<pre><code>@RequestMapping(&quot;/hello&quot;)
+@ResponseBody
+@CrossOrigin(&quot;http://localhost:8080&quot;) 
+public String index( ){
+    return &quot;Hello World&quot;;
+}
+</code></pre><p>或者在控制器（@Controller）上使用注解 @CrossOrigin ：</p>
+<pre><code>@Controller
+@CrossOrigin(origins = &quot;http://xx-domain.com&quot;, maxAge = 3600)
+public class AccountController {
+
+    @RequestMapping(&quot;/hello&quot;)
+    @ResponseBody
+    public String index( ){
+        return &quot;Hello World&quot;;
+    }
+}
+</code></pre><h5 id="手工设置响应头（局部跨域-）"><a href="#手工设置响应头（局部跨域-）" class="headerlink" title="手工设置响应头（局部跨域 ）"></a>手工设置响应头（局部跨域 ）</h5><p>使用 HttpServletResponse 对象添加响应头（Access-Control-Allow-Origin）来授权原始域，这里 Origin 的值也可以设置为”*” ，表示全部放行。</p>
+<pre><code>@RequestMapping(&quot;/hello&quot;)
+@ResponseBody
+public String index(HttpServletResponse response){
+    response.addHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;http://localhost:8080&quot;);
+    return &quot;Hello World&quot;;
+}
+</code></pre><h4 id="测试跨域访问"><a href="#测试跨域访问" class="headerlink" title="测试跨域访问"></a>测试跨域访问</h4><p>首先使用 Spring Initializr 快速构建一个 Maven 工程，什么都不用改，在 static 目录下，添加一个页面：index.html 来模拟跨域访问。目标地址: <a href="http://localhost:8090/hello" target="_blank" rel="noopener">http://localhost:8090/hello</a></p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+    &lt;title&gt;Page Index&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h2&gt;前台系统&lt;/h2&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;script src=&quot;webjars/jquery/3.2.1/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    $.ajax({
+        url: &apos;http://localhost:8090/hello&apos;,
+        type: &quot;POST&quot;,
+        success: function (data) {
+            $(&quot;#info&quot;).html(&quot;跨域访问成功:&quot;+data);
+        },
+        error: function (data) {
+            $(&quot;#info&quot;).html(&quot;跨域失败!!&quot;);
+        }
+    })
+&lt;/script&gt;
+&lt;/html&gt;
+</code></pre><p>然后创建另一个工程，在 Root Package 添加 Config 目录并创建配置类来开启全局 CORS。</p>
+<pre><code>package com.hehe.yyweb.config;
+
+@Configuration
+public class GlobalCorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping(&quot;/**&quot;);
+            }
+        };
+    }
+}
+</code></pre><p>接着，简单编写一个 Rest 接口 ，并指定应用端口为 8090。</p>
+<pre><code>package com.hehe.yyweb;
+
+@SpringBootApplication
+@RestController
+public class YyWebApplication {
+
+    @Bean
+    public TomcatServletWebServerFactory tomcat() {
+        TomcatServletWebServerFactory tomcatFactory = new TomcatServletWebServerFactory();
+        tomcatFactory.setPort(8090); //默认启动8090端口
+        return tomcatFactory;
+    }
+
+    @RequestMapping(&quot;/hello&quot;)
+    public String index() {
+        return &quot;Hello World&quot;;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(YyWebApplication.class, args);
+    }
+}
+</code></pre><p>最后分别启动两个应用，然后在浏览器访问：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a> ，可以正常接收 JSON 数据，说明跨域访问成功！！</p>
+<p>尝试把全局 CORS 关闭，或者没有单独在方法或类上授权跨域，再次访问：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a> 时会看到跨域请求失败！！</p>
+<p>四、源码和文档</p>
+<p>源码地址： <a href="https://github.com/yizhiwazi/springboot-socks/tree/master/springboot-cross-orgin" target="_blank" rel="noopener">SpringBoot-Cross-Orgin</a></p>
+<p>专题阅读：<a href="https://www.jianshu.com/p/964370d9374e" target="_blank" rel="noopener">《SpringBoot 布道系列》</a></p>
+<p>官方文档： <a href="https://www.w3.org/TR/cors/" target="_blank" rel="noopener">W3C 规范 - CORS</a></p>
+<p>传统文档： <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-cors" target="_blank" rel="noopener">SpringMVC-CORS 使用手册</a></p>
+<p>推荐阅读： <a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解 - 阮一峰</a></p>
+<p>转自：<a href="http://www.jianshu.com/p/477e7eaa6c2f" target="_blank" rel="noopener">http://www.jianshu.com/p/477e7eaa6c2f</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+      
+    </div>
+    <div>
+      
+        
+
+      
+    </div>
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>我们都像孩子一样忠实的为自己的想法而活着！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Dewey Liu 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Dewey Liu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/MongoDB-Multilayer-Structural-Storage/" rel="next" title="MongoDB 针对嵌套对象，多层级结构存储">
+                <i class="fa fa-chevron-left"></i> MongoDB 针对嵌套对象，多层级结构存储
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/SpringBoot-Auto-Configure-Principle/" rel="prev" title="SpringBoot自动配置的实现原理">
+                SpringBoot自动配置的实现原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/d6.gif" alt="Dewey Liu">
+            
+              <p class="site-author-name" itemprop="name">Dewey Liu</p>
+              <p class="site-description motion-element" itemprop="description">We are all living as faithful to our ideas as children.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/DeweyLiu" title="GitHub &rarr; https://github.com/DeweyLiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/y759962464" title="Weibo &rarr; https://weibo.com/y759962464" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://instagram.com/dewey_liu" title="Instagram &rarr; https://instagram.com/dewey_liu" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、基本介绍"><span class="nav-number">1.</span> <span class="nav-text">一、基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CORS-工作原理"><span class="nav-number">1.1.</span> <span class="nav-text">CORS 工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Request-Headers（请求头）"><span class="nav-number">1.2.</span> <span class="nav-text">Request Headers（请求头）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Response-headers（响应头-）"><span class="nav-number">1.3.</span> <span class="nav-text">Response headers（响应头 ）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS-实现跨域访问"><span class="nav-number">2.</span> <span class="nav-text">CORS 实现跨域访问</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#返回新的-CorsFilter（全局跨域）"><span class="nav-number">2.1.</span> <span class="nav-text">返回新的 CorsFilter（全局跨域）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重写-WebMvcConfigurer（全局跨域）"><span class="nav-number">2.2.</span> <span class="nav-text">重写 WebMvcConfigurer（全局跨域）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用注解（局部跨域）"><span class="nav-number">2.3.</span> <span class="nav-text">使用注解（局部跨域）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手工设置响应头（局部跨域-）"><span class="nav-number">2.4.</span> <span class="nav-text">手工设置响应头（局部跨域 ）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试跨域访问"><span class="nav-number">3.</span> <span class="nav-text">测试跨域访问</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dewey Liu</span>
+
+  
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a></div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+  
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+<!---->
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/jquery-lazyload@1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+<script src="/js/src/photoswipe.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'MJFl34UId7bERw6zMfY64eBv-MdYXbMMI',
+        appKey: 'SBcM2bkz8gFfwQyp0fnjN7wV',
+        placeholder: 'Just go go',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=6.6.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=6.6.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script> -->
+  <script type="text/javascript" src="/js/src/click.js"></script>
+  <div class="waifu">
+        <div class="waifu-tips"></div>
+        <canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-home"></span>
+            <span class="fui-chat"></span>
+            <span class="fui-eye"></span>
+            <span class="fui-user"></span>
+            <span class="fui-photo"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cross"></span>
+        </div>
+    </div>
+    
+<script src="/js/src/live2d/assets/waifu-tips.min.js"></script>
+<script src="/js/src/live2d/assets/live2d.min.js"></script>
+
+<script type="text/javascript">
+   // live2d_settings['hitokotoAPI'] = 'hitokoto.cn';
+    live2d_settings['modelId'] = 1;
+    live2d_settings['modelTexturesId'] = 53;
+    live2d_settings['modelStorage'] = false;
+    live2d_settings['canCloseLive2d'] = true;
+    live2d_settings['canTurnToHomePage'] = false;
+   // live2d_settings['waifuSize'] = '600x535';
+    live2d_settings['waifuTipsSize'] = '280x80';
+    live2d_settings['waifuFontSize'] = '12px';
+    live2d_settings['waifuToolFont'] = '16px';
+    live2d_settings['waifuToolLine'] = '25px';
+    live2d_settings['waifuToolTop'] = '0px';
+    live2d_settings['waifuDraggable'] = 'axis-x';
+    live2d_settings['waifuEdgeSide']  = "right:30";
+    initModel("/js/src/live2d/assets/waifu-tips.json")
+</script>
+
+<script>!function(o){var i=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function c(t,e){var n=new Image,o=t.getAttribute("data-original");n.onload=function(){t.src=o,e&&e()},n.src=o}function n(){for(var t=0;t<i.length;t++)e=i[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(o.innerHeight||document.documentElement.clientHeight)&&c(i[t],function(){i.splice(t,t)});var e,n;console.log("trigger")}n(),o.addEventListener("scroll",function(){var t,e;t=n,e=o,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

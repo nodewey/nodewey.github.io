@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+<!--<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.css" rel="stylesheet">-->
+
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Damion:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '850WOI8N5E',
+      apiKey: 'f4a860b36d596ca79aeb2eba34b78ae7',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="废话的前言以前凭借年轻，凡事都靠脑记。现在工作几年后发现，很多以前看过、用过的东西，再次拿起的时候总觉得记不牢靠。”好记性不如烂笔头”应该是某位上了年纪的大叔的切肤之痛（仅次于上了年纪的难言之瘾）。">
+<meta name="keywords" content="java,quartz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quartz使用总结。---在某一个有规律的时间点干某件事。">
+<meta property="og:url" content="http://foreverdewey.github.io/post/quartz-sometime-todo/index.html">
+<meta property="og:site_name" content="Dewey Liu">
+<meta property="og:description" content="废话的前言以前凭借年轻，凡事都靠脑记。现在工作几年后发现，很多以前看过、用过的东西，再次拿起的时候总觉得记不牢靠。”好记性不如烂笔头”应该是某位上了年纪的大叔的切肤之痛（仅次于上了年纪的难言之瘾）。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-07T09:56:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quartz使用总结。---在某一个有规律的时间点干某件事。">
+<meta name="twitter:description" content="废话的前言以前凭借年轻，凡事都靠脑记。现在工作几年后发现，很多以前看过、用过的东西，再次拿起的时候总觉得记不牢靠。”好记性不如烂笔头”应该是某位上了年纪的大叔的切肤之痛（仅次于上了年纪的难言之瘾）。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Dewey Liu" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://foreverdewey.github.io/post/quartz-sometime-todo/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <!--自定义看板娘-->
+<link rel="stylesheet" type="text/css" href="/js/src/live2d/assets/waifu.min.css">
+<script src="/js/src/live2d/assets/jquery.min.js"></script>
+<script src="/js/src/live2d/assets/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/js/src/aplayer/APlayer.min.css">
+<script src="/js/src/aplayer/APlayer.min.js"></script>
+<script src="/js/src/aplayer/Meting.min.js"></script>		
+  <title>Quartz使用总结。---在某一个有规律的时间点干某件事。 | Dewey Liu</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89637345-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89637345-1');
+</script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <!--<a href="https://github.com/DeweyLiu"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>-->
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dewey Liu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-photos">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/photos/" rel="section"><i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br>相册</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://foreverdewey.github.io/post/quartz-sometime-todo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dewey Liu">
+      <meta itemprop="description" content="We are all living as faithful to our ideas as children.">
+      <meta itemprop="image" content="/images/d6.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dewey Liu">
+    </span>
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Quartz使用总结。---在某一个有规律的时间点干某件事。
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-13 15:04:24" itemprop="dateCreated datePublished" datetime="2018-12-13T15:04:24+08:00">2018-12-13</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/post/quartz-sometime-todo/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/post/quartz-sometime-todo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/post/quartz-sometime-todo/" class="leancloud_visitors" data-flag-title="Quartz使用总结。---在某一个有规律的时间点干某件事。">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="废话的前言"><a href="#废话的前言" class="headerlink" title="废话的前言"></a>废话的前言</h2><p>以前凭借年轻，凡事都靠脑记。现在工作几年后发现，很多以前看过、用过的东西，再次拿起的时候总觉得记不牢靠。”好记性不如烂笔头”应该是某位上了年纪的大叔的切肤之痛（仅次于上了年纪的难言之瘾）。</p>
+<a id="more"></a>
+<p></p><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">我觉得这事得怪怪中国的应试教育，中国的考试方式就是要求把脑袋当数据库，以前中学那点知识，确实还能装得下。但现在所需的知识量再一次性装入大脑，就是内存溢出的节奏。另，再相信什么人脑只开发5%的蠢话了（「人脑只用了不到 5%」 的说法是否确有科学依据？）。更可行的方式，应该学学数据库，大脑只记忆知识的索引，而把知识的本身定义在外部的存储中（比如笔记）。基于这个理念，现在准备学着写点总结性的笔记。</p><p></p>
+<p></p><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">那为什么不能基于google学习呢？因为google的索引不是你自己，不能精确找到你想要的东西。但它的好处是更海量，能给你原本压根不知道东西。所以，配合使用，疗效更好。</p><p></p>
+<p></p><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t2"></a><br><a target="_blank" class="anchor" name="user-content-quartz%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E5%81%9A%E4%BB%80%E4%B9%88" href="http://www.cnblogs.com/drift-ice/p/3817269.html#quartz%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E5%81%9A%E4%BB%80%E4%B9%88" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Quartz可以用来做什么？</h2><p></p>
+<p></p><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Quartz是一个任务调度框架。比如你遇到这样的问题</p><p></p>
+<p><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"></ul></p>
+<p><li style="margin:0px; padding:0px; list-style:disc">想每月25号，信用卡自动还款</li><li style="margin:0px; padding:0px; list-style:disc">想每年4月1日自己给当年暗恋女神发一封匿名贺卡</li><li style="margin:0px; padding:0px; list-style:disc">想每隔1小时，备份一下自己的爱情动作片 学习笔记到云盘</li></p>
+<p></p><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">这些问题总结起来就是：在某一个有规律的时间点干某件事。并且时间的触发的条件可以非常复杂（比如每月最后一个工作日的17:50），复杂到需要一个专门的框架来干这个事。 Quartz就是来干这样的事，你给它一个触发条件的定义，它负责到了时间点，触发相应的Job起来干活。</p><p></p>
+<p></p><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t3"></a><br><a target="_blank" class="anchor" name="user-content-%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%A4%BA%E4%BE%8B" href="http://www.cnblogs.com/drift-ice/p/3817269.html#%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%A4%BA%E4%BE%8B" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>一个简单的示例</h2><p></p>
+<p></p><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">这里面的所有例子都是基于Quartz 2.2.1</p><p></p>
+<div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">package</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">com</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">test</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">DateBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">newDate</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">JobBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">newJob</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">SimpleScheduleBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">simpleSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">TriggerBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">newTrigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">java.util.GregorianCalendar</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.JobDetail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.Scheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.Trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.impl.StdSchedulerFactory</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.impl.calendar.AnnualCalendar</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br><span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">class</span> <span class="nc" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">QuartzTest</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">static</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">main</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">String</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">[]</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">args</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>        <span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">try</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>            <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//创建scheduler</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">Scheduler</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">scheduler</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">StdSchedulerFactory</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getDefaultScheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>            <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义一个Trigger</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">Trigger</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">newTrigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIdentity</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“trigger1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“group1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义name/group</span><br>                <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">startNow</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//一旦加入scheduler，立即生效</span><br>                <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">simpleSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//使用SimpleTrigger</span><br>                    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInSeconds</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每隔一秒执行一次</span><br>                    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">repeatForever</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">())</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//一直执行，奔腾到老不停歇</span><br>                <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>            <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义一个JobDetail</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobDetail</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">job</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">newJob</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">HelloQuartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">class</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义Job类为HelloQuartz类，这是真正的执行逻辑所在</span><br>                <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIdentity</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“job1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“group1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义name/group</span><br>                <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">usingJobData</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“name”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“quartz”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义属性</span><br>                <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>            <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//加入这个调度</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">scheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">scheduleJob</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">job</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br><br>            <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//启动之</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">scheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">start</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>            <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//运行一段时间后关闭</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">Thread</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">sleep</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">10000</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">scheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">shutdown</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="kc" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">true</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br>        <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span> <span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">catch</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">Exception</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">e</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">e</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">printStackTrace</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br>        <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br></pre><br></div><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">package</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">com</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">test</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">java.util.Date</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.DisallowConcurrentExecution</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.Job</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.JobDetail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.JobExecutionContext</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">org.quartz.JobExecutionException</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br><span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">class</span> <span class="nc" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">HelloQuartz</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">implements</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">Job</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">execute</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionContext</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">context</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">throws</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionException</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobDetail</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">detail</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">context</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getJobDetail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">String</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">name</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">detail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getJobDataMap</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getString</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“name”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">System</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">out</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">println</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“say hello to “</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">name</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“ at “</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">new</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">Date</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">());</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">这个例子很好的覆盖了Quartz最重要的3个基本要素：</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">Scheduler：调度器。所有的调度都是由它控制。</li><li style="margin:0px; padding:0px; list-style:disc">Trigger： 定义触发的条件。例子中，它的类型是SimpleTrigger，每隔1秒中执行一次（什么是SimpleTrigger下面会有详述）。</li><li style="margin:0px; padding:0px; list-style:disc">JobDetail &amp; Job： JobDetail 定义的是任务数据，而真正的执行逻辑是在Job中，例子中是HelloQuartz。 为什么设计成JobDetail + Job，不直接使用Job？这是因为任务是有可能并发执行，如果Scheduler直接使用Job，就会存在对同一个Job实例并发访问的问题。而JobDetail &amp; Job 方式，sheduler每次执行，都会根据JobDetail创建一个新的Job实例，这样就可以规避并发访问的问题。</li></ul><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t4"></a><br><a target="_blank" class="anchor" name="user-content-quartz-api" href="http://www.cnblogs.com/drift-ice/p/3817269.html#quartz-api" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Quartz API</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Quartz的API的风格在2.x以后，采用的是DSL风格（通常意味着fluent interface风格），就是示例中newTrigger()那一段东西。它是通过Builder实现的，就是以下几个。（<strong> 下面大部分代码都要引用这些Builder </strong> )</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//job相关的builder</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">JobBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.<em>;</em></span><br><br><span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//trigger相关的builder</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">TriggerBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">SimpleScheduleBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.<em>;</em></span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">CronScheduleBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.;</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">DailyTimeIntervalScheduleBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.<em>;</em></span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">CalendarIntervalScheduleBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.;</span><br><br><span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//日期相关的builder</span><br><span class="kn" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">import</span> <span class="nn" style="margin:0px; padding:0px; line-height:1.8; color:rgb(85,85,85)">static</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">DateBuilder</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.<em>;</em></span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">DSL风格写起来会更加连贯，畅快，而且由于不是使用setter的风格，语义上会更容易理解一些。对比一下：</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">JobDetail</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">jobDetail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span><span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">new</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">JobDetailImpl</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“jobDetail1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“group1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">HelloQuartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">class</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">jobDetail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getJobDataMap</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">put</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“name”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“quartz”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">SimpleTriggerImpl</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span><span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">new</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">SimpleTriggerImpl</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“trigger1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“group1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">setStartTime</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">new</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">Date</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">());</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">setRepeatInterval</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">setRepeatCount</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(-</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br></pre><br></div><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t5"></a><br><a target="_blank" class="anchor" name="user-content-%E5%85%B3%E4%BA%8Ename%E5%92%8Cgroup" href="http://www.cnblogs.com/drift-ice/p/3817269.html#%E5%85%B3%E4%BA%8Ename%E5%92%8Cgroup" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>关于name和group</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">JobDetail和Trigger都有name和group。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">name是它们在这个sheduler里面的唯一标识。如果我们要更新一个JobDetail定义，只需要设置一个name相同的JobDetail实例即可。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">group是一个组织单元，sheduler会提供一些对整组操作的API，比如 scheduler.resumeJobs()。</p><br><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t6"></a><br><a target="_blank" class="anchor" name="user-content-trigger" href="http://www.cnblogs.com/drift-ice/p/3817269.html#trigger" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Trigger</h2><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">在开始详解每一种Trigger之前，需要先了解一下Trigger的一些共性。</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t7"></a><br><a target="_blank" class="anchor" name="user-content-starttime--endtime" href="http://www.cnblogs.com/drift-ice/p/3817269.html#starttime--endtime" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>StartTime<br> &amp; EndTime</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">startTime和endTime指定的Trigger会被触发的时间区间。在这个区间之外，Trigger是不会被触发的。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px"><strong> 所有Trigger都会包含这两个属性 </strong></p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t8"></a><br><a target="_blank" class="anchor" name="user-content-%E4%BC%98%E5%85%88%E7%BA%A7priority" href="http://www.cnblogs.com/drift-ice/p/3817269.html#%E4%BC%98%E5%85%88%E7%BA%A7priority" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>优先级（Priority）</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">当scheduler比较繁忙的时候，可能在同一个时刻，有多个Trigger被触发了，但资源不足（比如线程池不足）。那么这个时候比剪刀石头布更好的方式，就是设置优先级。优先级高的先执行。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">需要注意的是，优先级只有在同一时刻执行的Trigger之间才会起作用，如果一个Trigger是9:00，另一个Trigger是9:30。那么无论后一个优先级多高，前一个都是先执行。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">优先级的值默认是5，当为负数时使用默认值。最大值似乎没有指定，但建议遵循Java的标准，使用1-10，不然鬼才知道看到【优先级为10】是时，上头还有没有更大的值。</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t9"></a><br><a target="_blank" class="anchor" name="user-content-misfire%E9%94%99%E5%A4%B1%E8%A7%A6%E5%8F%91%E7%AD%96%E7%95%A5" href="http://www.cnblogs.com/drift-ice/p/3817269.html#misfire%E9%94%99%E5%A4%B1%E8%A7%A6%E5%8F%91%E7%AD%96%E7%95%A5" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Misfire(错失触发）策略</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">类似的Scheduler资源不足的时候，或者机器崩溃重启等，有可能某一些Trigger在应该触发的时间点没有被触发，也就是Miss Fire了。这个时候Trigger需要一个策略来处理这种情况。每种Trigger可选的策略各不相同。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">这里有两个点需要重点注意：</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">MisFire的触发是有一个阀值，这个阀值是配置在JobStore的。比RAMJobStore是org.quartz.jobStore.misfireThreshold。只有超过这个阀值，才会算MisFire。小于这个阀值，Quartz是会全部重新触发。</li></ul><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">所有MisFire的策略实际上都是解答两个问题：</p><br><ol style="margin:15px 0px; padding:0px 0px 0px 40px; border:0px"><br><li style="margin:0px; padding:0px; list-style:decimal">已经MisFire的任务还要重新触发吗？</li><li style="margin:0px; padding:0px; list-style:decimal">如果发生MisFire，要调整现有的调度时间吗？</li></ol><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">比如SimpleTrigger的MisFire策略有：</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">这个不是忽略已经错失的触发的意思，而是说忽略MisFire策略。它会在资源合适的时候，重新触发所有的MisFire任务，并且不会影响现有的调度时间。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">比如，SimpleTrigger每15秒执行一次，而中间有5分钟时间它都MisFire了，一共错失了20个，5分钟后，假设资源充足了，并且任务允许并发，它会被一次性触发。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">这个属性是所有Trigger都适用。</p><br></li><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MISFIRE_INSTRUCTION_FIRE_NOW</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">忽略已经MisFire的任务，并且立即执行调度。这通常只适用于只执行一次的任务。</p><br></li><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_REPEAT_COUNT</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">将startTime设置当前时间，立即重新调度任务，包括的MisFire的</p><br></li><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_REPEAT_COUNT</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">类似MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_REPEAT_COUNT，区别在于会忽略已经MisFire的任务</p><br></li><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">在下一次调度时间点，重新开始调度任务，包括的MisFire的</p><br></li><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">类似于MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT，区别在于会忽略已经MisFire的任务。</p><br></li><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MISFIRE_INSTRUCTION_SMART_POLICY</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">所有的Trigger的MisFire默认值都是这个，大致意思是“把处理逻辑交给聪明的Quartz去决定”。基本策略是，</p><br><ol style="margin:15px 0px; padding:0px 0px 0px 40px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">如果是只执行一次的调度，使用MISFIRE_INSTRUCTION_FIRE_NOW</li><li style="margin:0px; padding:0px; list-style:disc">如果是无限次的调度(repeatCount是无限的)，使用MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT</li><li style="margin:0px; padding:0px; list-style:disc">否则，使用MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_REPEAT_COUNT</li></ol><br></li></ul><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">MisFire的东西挺繁杂的，可以参考<a target="_blank" href="http://java.dzone.com/articles/quartz-scheduler-misfire" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">这篇</a></p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t10"></a><br><a target="_blank" class="anchor" name="user-content-calendar" href="http://www.cnblogs.com/drift-ice/p/3817269.html#calendar" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Calendar</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">这里的Calendar不是jdk的java.util.Calendar，不是为了计算日期的。它的作用是在于补充Trigger的时间。可以排除或加入某一些特定的时间点。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">以”每月25日零点自动还卡债“为例，我们想排除掉每年的2月25号零点这个时间点（因为有2.14，所以2月一定会破产）。这个时间，就可以用Calendar来实现。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">例子：</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">AnnualCalendar</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">cal</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">new</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">AnnualCalendar</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义一个每年执行Calendar，精度为天，即不能定义到2.25号下午2:00</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">java</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">util</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">Calendar</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">excludeDay</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">new</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">GregorianCalendar</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">excludeDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">setTime</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">newDate</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">inMonthOnDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">2</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">25</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">).</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">());</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">cal</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">setDayExcluded</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">excludeDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="kc" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">true</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span>  <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//设置排除2.25这个日期</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">scheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">addCalendar</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“FebCal”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">cal</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="kc" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">false</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="kc" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">false</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//scheduler加入这个Calendar</span><br><br><span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义一个Trigger</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">Trigger</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">newTrigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIdentity</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“trigger1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“group1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">startNow</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//一旦加入scheduler，立即生效</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">modifiedByCalendar</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“FebCal”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//使用Calendar !!</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">simpleSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>        <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInSeconds</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span><br>        <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">repeatForever</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">())</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Quartz体贴地为我们提供以下几种Calendar，注意，所有的Calendar既可以是排除，也可以是包含，取决于：</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">HolidayCalendar。指定特定的日期，比如20140613。精度到天。</li><li style="margin:0px; padding:0px; list-style:disc">DailyCalendar。指定每天的时间段（rangeStartingTime, rangeEndingTime)，格式是HH:MM[:SS[:mmm]]。也就是最大精度可以到毫秒。</li><li style="margin:0px; padding:0px; list-style:disc">WeeklyCalendar。指定每星期的星期几，可选值比如为java.util.Calendar.SUNDAY。精度是天。</li><li style="margin:0px; padding:0px; list-style:disc">MonthlyCalendar。指定每月的几号。可选值为1-31。精度是天</li><li style="margin:0px; padding:0px; list-style:disc">AnnualCalendar。 指定每年的哪一天。使用方式如上例。精度是天。</li><li style="margin:0px; padding:0px; list-style:disc">CronCalendar。指定Cron表达式。精度取决于Cron表达式，也就是最大精度可以到秒。</li></ul><br><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t11"></a><br><a target="_blank" class="anchor" name="user-content-trigger%E5%AE%9E%E7%8E%B0%E7%B1%BB" href="http://www.cnblogs.com/drift-ice/p/3817269.html#trigger%E5%AE%9E%E7%8E%B0%E7%B1%BB" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Trigger实现类</h2><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Quartz有以下几种Trigger实现:</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t12"></a><br><a target="_blank" class="anchor" name="user-content-simpletrigger" href="http://www.cnblogs.com/drift-ice/p/3817269.html#simpletrigger" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>SimpleTrigger</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">指定从某一个时间开始，以一定的时间间隔（单位是毫秒）执行的任务。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它适合的任务类似于：9:00 开始，每隔1小时，执行一次。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它的属性有：</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">repeatInterval 重复间隔</li><li style="margin:0px; padding:0px; list-style:disc">repeatCount 重复次数。实际执行次数是 repeatCount+1。因为在startTime的时候一定会执行一次。<strong> 下面有关repeatCount 属性的都是同理。　</strong></li></ul><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">例子：</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">simpleSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>        <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInHours</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每小时执行一次</span><br>        <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">repeatForever</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//次数不限</span><br>        <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">simpleSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInMinutes</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每分钟执行一次</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withRepeatCount</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">10</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//次数为10次</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br></pre><br></div><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t13"></a><br><a target="_blank" class="anchor" name="user-content-calendarintervaltrigger" href="http://www.cnblogs.com/drift-ice/p/3817269.html#calendarintervaltrigger" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>CalendarIntervalTrigger</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">类似于SimpleTrigger，指定从某一个时间开始，以一定的时间间隔执行的任务。 但是不同的是SimpleTrigger指定的时间间隔为<span style="margin:0px; padding:0px">毫秒</span>，没办法指定每隔一个月执行一次（每月的时间间隔不是固定值），而CalendarIntervalTrigger支持的间隔单位有<span style="margin:0px; padding:0px">秒，分钟，小时，天，月，年，星期</span>。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">相较于SimpleTrigger有两个优势：1、更方便，比如每隔1小时执行，你不用自己去计算1小时等于多少毫秒。 2、支持不是固定长度的间隔，比如间隔为月和年。但劣势是精度只能到秒。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它适合的任务类似于：9:00 开始执行，并且以后每周 9:00 执行一次</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它的属性有:</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">interval 执行间隔</li><li style="margin:0px; padding:0px; list-style:disc">intervalUnit 执行间隔的单位（秒，分钟，小时，天，月，年，星期）</li></ul><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">例子:</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">calendarIntervalSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInDays</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每天执行一次</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">calendarIntervalSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInWeeks</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每周执行一次</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br></pre><br></div><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t14"></a><br><a target="_blank" class="anchor" name="user-content-dailytimeintervaltrigger" href="http://www.cnblogs.com/drift-ice/p/3817269.html#dailytimeintervaltrigger" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>DailyTimeIntervalTrigger</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">指定每天的某个时间段内，以一定的时间间隔执行任务。并且它可以支持指定星期。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它适合的任务类似于：指定每天9:00 至 18:00 ，每隔70秒执行一次，并且只要周一至周五执行。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它的属性有:</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">startTimeOfDay 每天开始时间</li><li style="margin:0px; padding:0px; list-style:disc">endTimeOfDay 每天结束时间</li><li style="margin:0px; padding:0px; list-style:disc">daysOfWeek 需要执行的星期</li><li style="margin:0px; padding:0px; list-style:disc">interval 执行间隔</li><li style="margin:0px; padding:0px; list-style:disc">intervalUnit 执行间隔的单位（秒，分钟，小时，天，月，年，星期）</li><li style="margin:0px; padding:0px; list-style:disc">repeatCount 重复次数</li></ul><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">例子:</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">dailyTimeIntervalSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">startingDailyAt</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">TimeOfDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">hourAndMinuteOfDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">9</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">0</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">))</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//第天9：00开始</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">endingDailyAt</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">TimeOfDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">hourAndMinuteOfDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">16</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">0</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">))</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//16：00 结束 </span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">onDaysOfTheWeek</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">MONDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">TUESDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">WEDNESDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">THURSDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">FRIDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//周一至周五执行</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInHours</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每间隔1小时执行一次</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withRepeatCount</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">100</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//最多重复100次（实际执行100+1次）</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">dailyTimeIntervalSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">startingDailyAt</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">TimeOfDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">hourAndMinuteOfDay</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">9</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">0</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">))</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//第天9：00开始</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">endingDailyAfterCount</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">10</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每天执行10次，这个方法实际上根据 startTimeOfDay+intervalcount 算出 endTimeOfDay</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">onDaysOfTheWeek</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">MONDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">TUESDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">WEDNESDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">THURSDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">FRIDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//周一至周五执行</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInHours</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//每间隔1小时执行一次</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br></pre><br></div><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t15"></a><br><a target="_blank" class="anchor" name="user-content-crontrigger" href="http://www.cnblogs.com/drift-ice/p/3817269.html#crontrigger" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>CronTrigger</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">适合于更复杂的任务，它支持类型于Linux Cron的语法（并且更强大）。基本上它覆盖了以上三个Trigger的绝大部分能力（但不是全部）—— 当然，也更难理解。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它适合的任务类似于：每天0:00,9:00,18:00各执行一次。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">它的属性只有:</p><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">Cron表达式。但这个表示式本身就够复杂了。下面会有说明。</li></ul><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">例子：</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">cronSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“0 0/2 8-17 <em> </em> ?”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">// 每天8:00-17:00，每隔2分钟执行一次</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">cronSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“0 30 9 ? <em> MON”</em></span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">// 每周一，9:30执行一次</span><br><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">weeklyOnDayAndHourAndMinute</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">MONDAY</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">9</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">30</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//等同于 0 30 9 ?  MON </span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br></pre><br></div><br><h4 style="margin:10px 0px; padding:0px; color:rgb(0,0,0)"><a target="_blank" class="anchor" name="user-content-cron%E8%A1%A8%E8%BE%BE%E5%BC%8F" href="http://www.cnblogs.com/drift-ice/p/3817269.html#cron%E8%A1%A8%E8%BE%BE%E5%BC%8F" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Cron表达式</h4><br><div class="table-box"><table style="margin:15px 0px; padding:0px; border:0px; border-collapse:collapse; word-break:break-word"><br><thead style="margin:0px; padding:0px"><br><tr style="margin:0px; padding:0px"><br><th style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>位置</th><br><th style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>时间域</th><br><th style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>允许值</th><br><th style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>特殊值</th><br></tr><br></thead><br><tbody style="margin:0px; padding:0px"><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>1</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>秒</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0-59</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>, - <em> /</em></td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>2</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>分钟</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0-59</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>, -  /</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>3</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>小时</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0-23</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>, - <em> /</em></td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>4</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>日期</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>1-31</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>, -  ? / L W C</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>5</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>月份</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>1-12</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>, - <em> /</em></td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>6</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>星期</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>1-7</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>, -  ? / L C #</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>7</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>年份（可选）</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>1-31</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>, - <em> /</em></td><br></tr><br></tbody><br></table></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">星号(<span style="margin:0px; padding:0px">)：可用在所有字段中，表示对应时间域的每一个时刻，例如，</span>&nbsp;在分钟字段时，表示“每分钟”；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">问号（?）：该字符只在日期和星期字段中使用，它通常指定为“无意义的值”，相当于点位符；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">减号(-)：表达一个范围，如在小时字段中使用“10-12”，则表示从10到12点，即10,11,12；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">逗号(,)：表达一个列表值，如在星期字段中使用“MON,WED,FRI”，则表示星期一，星期三和星期五；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">斜杠(/)：x/y表达一个等步长序列，x为起始值，y为增量步长值。如在分钟字段中使用0/15，则表示为0,15,30和45秒，而5/15在分钟字段中表示5,20,35,50，你也可以使用/y，它等同于0/y；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">L：该字符只在日期和星期字段中使用，代表“Last”的意思，但它在两个字段中意思不同。L在日期字段中，表示这个月份的最后一天，如一月的31号，非闰年二月的28号；如果L用在星期中，则表示星期六，等同于7。但是，如果L出现在星期字段里，而且在前面有一个数值X，则表示“这个月的最后X天”，例如，6L表示该月的最后星期五；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">W：该字符只能出现在日期字段里，是对前导日期的修饰，表示离该日期最近的工作日。例如15W表示离该月15号最近的工作日，如果该月15号是星期六，则匹配14号星期五；如果15日是星期日，则匹配16号星期一；如果15号是星期二，那结果就是15号星期二。但必须注意关联的匹配日期不能够跨月，如你指定1W，如果1号是星期六，结果匹配的是3号星期一，而非上个月最后的那天。W字符串只能指定单一日期，而不能指定日期范围；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">LW组合：在日期字段可以组合使用LW，它的意思是当月的最后一个工作日；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">井号(#)：该字符只能在星期字段中使用，表示当月某个工作日。如6#3表示当月的第三个星期五(6表示星期五，#3表示当前的第三个)，而4#5表示当月的第五个星期三，假设当月没有第五个星期三，忽略不触发；</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">C：该字符只在日期和星期字段中使用，代表“Calendar”的意思。它的意思是计划所关联的日期，如果日期没有被关联，则相当于日历中所有日期。例如5C在日期字段中就相当于日历5日以后的第一天。1C在星期字段中相当于星期日后的第一天。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Cron表达式对特殊字符的大小写不敏感，对代表星期的缩写英文大小写也不敏感。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">一些例子：</p><br><div class="table-box"><table style="margin:15px 0px; padding:0px; border:0px; border-collapse:collapse; word-break:break-word"><br><thead style="margin:0px; padding:0px"><br><tr style="margin:0px; padding:0px"><br><th style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>表示式</th><br><th style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>说明</th><br></tr><br></thead><br><tbody style="margin:0px; padding:0px"><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 0 12 <em> </em> ?</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天12点运行</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 ? <em> </em></td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天10:15运行</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 <em> </em> ?</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天10:15运行</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 <em> </em> ? <em></em></td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天10:15运行</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10  <em> ? 2008</em></td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>在2008年的每天10：15运行</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0  14 <em> </em> ?</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天14点到15点之间每分钟运行一次，开始于14:00，结束于14:59。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 0/5 14 <em> </em> ?</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天14点到15点每5分钟运行一次，开始于14:00，结束于14:55。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 0/5 14,18 <em> </em> ?</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天14点到15点每5分钟运行一次，此外每天18点到19点每5钟也运行一次。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 0-5 14 <em> </em> ?</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每天14:00点到14:05，每分钟运行一次。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 10,44 14 ? 3 WED</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>3月每周三的14:10分到14:44，每分钟运行一次。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 ? <em> MON-FRI</em></td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每周一，二，三，四，五的10:15分运行。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 15  ?</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每月15日10:15分运行。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 L <em> ?</em></td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每月最后一天10:15分运行。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 ?  6L</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每月最后一个星期五10:15分运行。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 ? <em> 6L 2007-2009</em></td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>在2007,2008,2009年每个月的最后一个星期五的10:15分运行。</td><br></tr><br><tr style="margin:0px; padding:0px"><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>0 15 10 ?  6#3</td><br><td style="margin:0px; padding:3px; border:1px solid silver; border-collapse:collapse"><br>每月第三个星期五的10:15分运行。</td><br></tr><br></tbody><br></table></div><br><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t16"></a><br><a target="_blank" class="anchor" name="user-content-jobdetail--job" href="http://www.cnblogs.com/drift-ice/p/3817269.html#jobdetail--job" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>JobDetail<br> &amp; Job</h2><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">JobDetail是任务的定义，而Job是任务的执行逻辑。在JobDetail里会引用一个Job Class定义。一个最简单的例子</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">class</span> <span class="nc" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">JobTest</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">static</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">main</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">String</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">[]</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">args</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">throws</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">SchedulerException</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">IOException</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobDetail</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">job</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">newJob</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>               <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">ofType</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">DoNothingJob</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">class</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//引用Job Class</span><br>               <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIdentity</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“job1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“group1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//设置name/group</span><br>               <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withDescription</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“this is a test job”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//设置描述</span><br>               <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">usingJobData</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“age”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">18</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//加入属性到ageJobDataMap</span><br>               <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">job</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getJobDataMap</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">put</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“name”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“quertz”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//加入属性name到JobDataMap</span><br><br>           <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//定义一个每秒执行一次的SimpleTrigger</span><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">Trigger</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">newTrigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>                   <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">startNow</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>                   <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIdentity</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“trigger1”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span><br>                   <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">simpleSchedule</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">()</span><br>                       <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">withIntervalInSeconds</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">1</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span><br>                       <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">repeatForever</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">())</span><br>                   <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">build</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">Scheduler</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">sche</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">StdSchedulerFactory</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getDefaultScheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">sche</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">scheduleJob</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">job</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">trigger</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">sche</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">start</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">System</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">in</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">read</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br><br>           <span class="n" style="margin:0px; padding:0px; line-height:1.8">sche</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">shutdown</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><br><br><span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">class</span> <span class="nc" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">DoNothingJob</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">implements</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">Job</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">execute</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionContext</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">context</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">throws</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionException</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">System</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">out</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">println</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“do nothing”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">从上例我们可以看出，要定义一个任务，需要干几件事：</p><br><ol style="margin:15px 0px; padding:0px 0px 0px 40px; border:0px"><br><li style="margin:0px; padding:0px; list-style:decimal">创建一个org.quartz.Job的实现类，并实现实现自己的业务逻辑。比如上面的DoNothingJob。</li><li style="margin:0px; padding:0px; list-style:decimal">定义一个JobDetail，引用这个实现类</li><li style="margin:0px; padding:0px; list-style:decimal">加入scheduleJob</li></ol><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Quartz调度一次任务，会干如下的事：</p><br><ol style="margin:15px 0px; padding:0px 0px 0px 40px; border:0px"><br><li style="margin:0px; padding:0px; list-style:decimal">JobClass jobClass=JobDetail.getJobClass()</li><li style="margin:0px; padding:0px; list-style:decimal">Job jobInstance=jobClass.newInstance()。所以Job实现类，必须有一个public的无参构建方法。</li><li style="margin:0px; padding:0px; list-style:decimal">jobInstance.execute(JobExecutionContext context)。JobExecutionContext是Job运行的上下文，可以获得Trigger、Scheduler、JobDetail的信息。</li></ol><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">也就是说，每次调度都会创建一个新的Job实例，这样的好处是有些任务并发执行的时候，不存在对临界资源的访问问题——当然，如果需要共享JobDataMap的时候，还是存在临界资源的并发访问的问题。</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t17"></a><br><a target="_blank" class="anchor" name="user-content-jobdatamap" href="http://www.cnblogs.com/drift-ice/p/3817269.html#jobdatamap" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>JobDataMap</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Job都次都是newInstance的实例，那我怎么传值给它？ 比如我现在有两个发送邮件的任务，一个是发给”liLei”,一个发给”hanmeimei”,不能说我要写两个Job实现类LiLeiSendEmailJob和HanMeiMeiSendEmailJob。实现的办法是通过JobDataMap。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">每一个JobDetail都会有一个JobDataMap。JobDataMap本质就是一个Map的扩展类，只是提供了一些更便捷的方法，比如getString()之类的。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">我们可以在定义JobDetail，加入属性值，方式有二：</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">newJob</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">usingJobData</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“age”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">18</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//加入属性到ageJobDataMap</span><br><br> <span class="n" style="margin:0px; padding:0px; line-height:1.8">or</span><br><br> <span class="n" style="margin:0px; padding:0px; line-height:1.8">job</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getJobDataMap</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">().</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">put</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“name”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“quertz”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//加入属性name到JobDataMap</span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">然后在Job中可以获取这个JobDataMap的值，方式同样有二：</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">class</span> <span class="nc" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">HelloQuartz</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">implements</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">Job</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">private</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">String</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">name</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">execute</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionContext</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">context</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">throws</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionException</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobDetail</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">detail</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">context</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getJobDetail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobDataMap</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">map</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">detail</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getJobDataMap</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">();</span> <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//方法一：获得JobDataMap</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">System</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">out</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">println</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“say hello to “</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">name</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“[“</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">map</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">getInt</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“age”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“]”</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“ at “</span><br>                           <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">+</span> <span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">new</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">Date</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">());</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><br>    <span class="c1" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">//方法二：属性的setter方法，会将JobDataMap的属性自动注入</span><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">setName</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">String</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">name</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>        <span class="k" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">this</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">name</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">name</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">对于同一个JobDetail实例，执行的多个Job实例，是共享同样的JobDataMap，也就是说，如果你在任务里修改了里面的值，会对其他Job实例（并发的或者后续的）造成影响。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">除了JobDetail，Trigger同样有一个JobDataMap，共享范围是所有使用这个Trigger的Job实例。</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t18"></a><br><a target="_blank" class="anchor" name="user-content-job%E5%B9%B6%E5%8F%91" href="http://www.cnblogs.com/drift-ice/p/3817269.html#job%E5%B9%B6%E5%8F%91" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Job并发</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Job是有可能并发执行的，比如一个任务要执行10秒中，而调度算法是每秒中触发1次，那么就有可能多个任务被并发执行。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">有时候我们并不想任务并发执行，比如这个任务要去”获得数据库中所有未发送邮件的名单“，如果是并发执行，就需要一个数据库锁去避免一个数据被多次处理。这个时候一个@DisallowConcurrentExecution解决这个问题。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">就是这样</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">class</span> <span class="nc" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">DoNothingJob</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">implements</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">Job</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>    <span class="nd" style="margin:0px; padding:0px; line-height:1.8">@DisallowConcurrentExecution</span><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">execute</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionContext</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">context</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span> <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">throws</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobExecutionException</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">{</span><br>        <span class="n" style="margin:0px; padding:0px; line-height:1.8">System</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">out</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">println</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="s" style="margin:0px; padding:0px; line-height:1.8; color:rgb(221,17,68)">“do nothing”</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">);</span><br>    <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">}</span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">注意，@DisallowConcurrentExecution是对JobDetail实例生效，也就是如果你定义两个JobDetail，引用同一个Job类，是可以并发执行的。</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t19"></a><br><a target="_blank" class="anchor" name="user-content-jobexecutionexception" href="http://www.cnblogs.com/drift-ice/p/3817269.html#jobexecutionexception" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>JobExecutionException</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Job.execute()方法是不允许抛出除JobExecutionException之外的所有异常的（包括RuntimeException)，所以编码的时候，最好是try-catch住所有的Throwable，小心处理。</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t20"></a><br><a target="_blank" class="anchor" name="user-content-%E5%85%B6%E4%BB%96%E5%B1%9E%E6%80%A7" href="http://www.cnblogs.com/drift-ice/p/3817269.html#%E5%85%B6%E4%BB%96%E5%B1%9E%E6%80%A7" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>其他属性</h3><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Durability(耐久性？)</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">如果一个任务不是durable，那么当没有Trigger关联它的时候，它就会被自动删除。</p><br></li><li style="margin:0px; padding:0px; list-style:disc"><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">RequestsRecovery</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">如果一个任务是”requests recovery”，那么当任务运行过程非正常退出时（比如进程崩溃，机器断电，但不包括抛出异常这种情况），Quartz再次启动时，会重新运行一次这个任务实例。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">可以通过JobExecutionContext.isRecovering()查询任务是否是被恢复的。</p><br></li></ul><br><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t21"></a><br><a target="_blank" class="anchor" name="user-content-scheduler" href="http://www.cnblogs.com/drift-ice/p/3817269.html#scheduler" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>Scheduler</h2><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Scheduler就是Quartz的大脑，所有任务都是由它来设施。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">Schduelr包含一个两个重要组件: JobStore和ThreadPool。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">JobStore是会来存储运行时信息的，包括Trigger,Schduler,JobDetail，业务锁等。它有多种实现RAMJob(内存实现)，JobStoreTX(JDBC，事务由Quartz管理），JobStoreCMT(JDBC，使用容器事务)，ClusteredJobStore(集群实现)、TerracottaJobStore(<a target="_blank" href="http://yale.iteye.com/blog/1541612" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">什么是Terractta</a>)。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">ThreadPool就是线程池，Quartz有自己的线程池实现。所有任务的都会由线程池执行。</p><br><h3 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); font-size:16px; line-height:1.5"><a name="t22"></a><br><a target="_blank" class="anchor" name="user-content-schedulerfactory" href="http://www.cnblogs.com/drift-ice/p/3817269.html#schedulerfactory" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>SchedulerFactory</h3><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">SchdulerFactory，顾名思义就是来用创建Schduler了，有两个实现：DirectSchedulerFactory和 StdSchdulerFactory。前者可以用来在代码里定制你自己的Schduler参数。后者是直接读取classpath下的quartz.properties（不存在就都使用默认值）配置来实例化Schduler。通常来讲，我们使用StdSchdulerFactory也就足够了。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">SchdulerFactory本身是支持创建RMI stub的，可以用来管理远程的Scheduler，功能与本地一样，可以远程提交个Job什么的。</p><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">DirectSchedulerFactory的创建接口</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px">    <span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">/*<em></em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      Same as</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em> {@link DirectSchedulerFactory#createScheduler(ThreadPool threadPool, JobStore jobStore)},</em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      with the addition of specifying the scheduler name and instance ID. This</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em> scheduler can only be retrieved via</em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      {@link DirectSchedulerFactory#getScheduler(String)}</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em></em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      @param schedulerName</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em>          The name for the scheduler.</em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      @param schedulerInstanceId</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em>          The instance ID for the scheduler.</em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      @param threadPool</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em>          The thread pool for executing jobs</em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      @param jobStore</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em>          The type of job store</em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">      @throws SchedulerException</span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     <em>           if initialization failed</em></span><br><span class="cm" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,153,136); font-style:italic">     /</span><br>    <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">public</span> <span class="kt" style="margin:0px; padding:0px; line-height:1.8; color:rgb(68,85,136); font-weight:bold">void</span> <span class="nf" style="margin:0px; padding:0px; line-height:1.8; color:rgb(153,0,0); font-weight:bold">createScheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">(</span><span class="n" style="margin:0px; padding:0px; line-height:1.8">String</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">schedulerName</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span><br>            <span class="n" style="margin:0px; padding:0px; line-height:1.8">String</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">schedulerInstanceId</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">ThreadPool</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">threadPool</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">,</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">JobStore</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">jobStore</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">)</span><br>        <span class="kd" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">throws</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">SchedulerException</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">;</span><br></pre><br></div><br><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; border:0px">StdSchdulerFactory的配置例子， 更多配置，参考<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/configuration/" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">Quartz配置指南</a>：</p><br><div class="highlight highlight-java" style="margin:0px 0px 15px; padding:0px; border:1px solid rgb(221,221,221); background:rgb(248,248,248)"><br><pre style="margin-top:15px; margin-bottom:15px; padding:0px; white-space:pre-wrap; word-wrap:break-word; border:0px; font-family:Consolas,&quot;Liberation Mono&quot;,Courier,monospace; font-size:12px"><span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">scheduler</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">instanceName</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">DefaultQuartzScheduler</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">threadPool</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">class</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">simpl</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">SimpleThreadPool</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">threadPool</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">threadCount</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">10</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">threadPool</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">threadPriority</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="mi" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,153,153)">5</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">threadPool</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">threadsInheritContextClassLoaderOfInitializingThread</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="kc" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">true</span><br><span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">jobStore</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">class</span> <span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">=</span> <span class="n" style="margin:0px; padding:0px; line-height:1.8">org</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">quartz</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">simpl</span><span class="o" style="margin:0px; padding:0px; line-height:1.8; font-weight:bold">.</span><span class="na" style="margin:0px; padding:0px; line-height:1.8; color:rgb(0,128,128)">RAMJobStore</span></pre><br></div><br><br><br><div id="cnblogs_post_body" style="margin:0px 0px 20px; padding:0px; word-break:break-word; color:rgb(51,51,51); font-family:verdana,Arial,Helvetica,sans-serif; font-size:14px"><br><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t23"></a><br>这里未讲的稍微高级的主题</h2><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">JobStore&nbsp;<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/tutorial-lesson-09" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">介绍</a>、<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/configuration/" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">配置</a></li><li style="margin:0px; padding:0px; list-style:disc">集群:&nbsp;<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/tutorial-lesson-11" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">介绍</a>、<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/configuration/ConfigJDBCJobStoreClustering" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">配置</a></li><li style="margin:0px; padding:0px; list-style:disc">RMI</li><li style="margin:0px; padding:0px; list-style:disc">监听器&nbsp;<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/tutorial-lesson-07" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">TriggerListeners<br> and JobListeners</a>、<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/tutorial-lesson-08" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">SchedulerListeners</a></li><li style="margin:0px; padding:0px; list-style:disc">插件</li></ul><br><h2 style="margin:10px 0px; padding:0px; color:rgb(0,0,0); line-height:1.5; font-size:21px"><a name="t24"></a><br><a target="_blank" class="anchor" name="user-content-%E5%8F%82%E8%80%83" href="http://www.cnblogs.com/drift-ice/p/3817269.html#%E5%8F%82%E8%80%83" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)"></a>参考</h2><br><ul style="margin:15px 0px 15px 35px; padding:0px; border:0px"><br><li style="margin:0px; padding:0px; list-style:disc">主要的资料来自<a target="_blank" href="http://quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">官方文档</a>，这里有教程，例子，配置等，非常详细</li><li style="margin:0px; padding:0px; list-style:disc">Cron表达式的说明，大段引用自<a target="_blank" href="http://www.blogjava.net/baoyaer/articles/155645.html" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">这里</a></li><li style="margin:0px; padding:0px; list-style:disc">中文文档，虽然版本比较旧，但是很多东西还是没过时的，比如插件、RMI，<a target="_blank" href="http://vdisk.weibo.com/s/Ca_zRC6PBQeh8" rel="nofollow" style="margin:0px; padding:0px; text-decoration:none; color:rgb(0,0,0); border-bottom:1px dotted rgb(51,51,51)">Quartz_Job_Scheduling_Framework_CN_V1.0.0</a></li></ul><br></div><br><div class="clear" style="margin:0px; padding:0px; clear:both; color:rgb(51,51,51); font-family:verdana,Arial,Helvetica,sans-serif; font-size:14px"><br></div><br><div id="blog_post_info_block" style="margin:20px 0px 0px; padding:0px; color:rgb(51,51,51); font-family:verdana,Arial,Helvetica,sans-serif; font-size:14px"><br><div id="BlogPostCategory" style="margin:0px 0px 10px; padding:0px"></div><br><div id="EntryTag" style="margin-top:0px!important; margin-right:0px; margin-bottom:0px; margin-left:0px; padding:0px; font-size:9pt"><br></div><br></div><br><p></p><br>            <br>                      
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+      
+    </div>
+    <div>
+      
+        
+
+      
+    </div>
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>我们都像孩子一样忠实的为自己的想法而活着！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Dewey Liu 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Dewey Liu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/quartz/" rel="tag"><i class="fa fa-tag"></i> quartz</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/high-concurrency-order/" rel="next" title="高并发，分布式电商订单号生成">
+                <i class="fa fa-chevron-left"></i> 高并发，分布式电商订单号生成
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/slf4j&log4j/" rel="prev" title="slf4j比log4j更优秀的一点是可以使用占位符">
+                slf4j比log4j更优秀的一点是可以使用占位符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/d6.gif" alt="Dewey Liu">
+            
+              <p class="site-author-name" itemprop="name">Dewey Liu</p>
+              <p class="site-description motion-element" itemprop="description">We are all living as faithful to our ideas as children.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/DeweyLiu" title="GitHub &rarr; https://github.com/DeweyLiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/y759962464" title="Weibo &rarr; https://weibo.com/y759962464" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://instagram.com/dewey_liu" title="Instagram &rarr; https://instagram.com/dewey_liu" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#废话的前言"><span class="nav-number">1.</span> <span class="nav-text">废话的前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">Quartz可以用来做什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">一个简单的示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">3.1.</span> <span class="nav-text">Quartz API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">3.2.</span> <span class="nav-text">关于name和group</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">Trigger</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">4.1.</span> <span class="nav-text">StartTime &amp; EndTime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">4.2.</span> <span class="nav-text">优先级（Priority）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">4.3.</span> <span class="nav-text">Misfire(错失触发）策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">4.4.</span> <span class="nav-text">Calendar</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">Trigger实现类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">5.1.</span> <span class="nav-text">SimpleTrigger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">5.2.</span> <span class="nav-text">CalendarIntervalTrigger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">5.3.</span> <span class="nav-text">DailyTimeIntervalTrigger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">5.4.</span> <span class="nav-text">CronTrigger</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">5.4.1.</span> <span class="nav-text">Cron表达式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">JobDetail &amp; Job</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">6.1.</span> <span class="nav-text">JobDataMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">6.2.</span> <span class="nav-text">Job并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">6.3.</span> <span class="nav-text">JobExecutionException</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">6.4.</span> <span class="nav-text">其他属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">7.</span> <span class="nav-text">Scheduler</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">7.1.</span> <span class="nav-text">SchedulerFactory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cnblogs_post_body"><span class="nav-number">8.</span> <span class="nav-text">这里未讲的稍微高级的主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cnblogs_post_body"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dewey Liu</span>
+
+  
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a></div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+  
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+<!---->
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/jquery-lazyload@1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+<script src="/js/src/photoswipe.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'MJFl34UId7bERw6zMfY64eBv-MdYXbMMI',
+        appKey: 'SBcM2bkz8gFfwQyp0fnjN7wV',
+        placeholder: 'Just go go',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=6.6.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=6.6.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script> -->
+  <script type="text/javascript" src="/js/src/click.js"></script>
+  <div class="waifu">
+        <div class="waifu-tips"></div>
+        <canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-home"></span>
+            <span class="fui-chat"></span>
+            <span class="fui-eye"></span>
+            <span class="fui-user"></span>
+            <span class="fui-photo"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cross"></span>
+        </div>
+    </div>
+    
+<script src="/js/src/live2d/assets/waifu-tips.min.js"></script>
+<script src="/js/src/live2d/assets/live2d.min.js"></script>
+
+<script type="text/javascript">
+   // live2d_settings['hitokotoAPI'] = 'hitokoto.cn';
+    live2d_settings['modelId'] = 1;
+    live2d_settings['modelTexturesId'] = 53;
+    live2d_settings['modelStorage'] = false;
+    live2d_settings['canCloseLive2d'] = true;
+    live2d_settings['canTurnToHomePage'] = false;
+   // live2d_settings['waifuSize'] = '600x535';
+    live2d_settings['waifuTipsSize'] = '280x80';
+    live2d_settings['waifuFontSize'] = '12px';
+    live2d_settings['waifuToolFont'] = '16px';
+    live2d_settings['waifuToolLine'] = '25px';
+    live2d_settings['waifuToolTop'] = '0px';
+    live2d_settings['waifuDraggable'] = 'axis-x';
+    live2d_settings['waifuEdgeSide']  = "right:30";
+    initModel("/js/src/live2d/assets/waifu-tips.json")
+</script>
+
+<script>!function(o){var i=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function c(t,e){var n=new Image,o=t.getAttribute("data-original");n.onload=function(){t.src=o,e&&e()},n.src=o}function n(){for(var t=0;t<i.length;t++)e=i[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(o.innerHeight||document.documentElement.clientHeight)&&c(i[t],function(){i.splice(t,t)});var e,n;console.log("trigger")}n(),o.addEventListener("scroll",function(){var t,e;t=n,e=o,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

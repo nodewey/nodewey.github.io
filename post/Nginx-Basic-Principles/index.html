@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+<!--<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.css" rel="stylesheet">-->
+
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Damion:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '850WOI8N5E',
+      apiKey: 'f4a860b36d596ca79aeb2eba34b78ae7',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一、选用 Nginx 的理由1）支持高并发连接 得益于 Nginx 使用最新的 epoll（Linux 2.6 内核）和 kqueue(FreeBSD) 网络 I/O 模型，官方测试 Nginx 可最高支持 5 万的并发连接，在实际的生产环境中，可实际支持 2~4 万的并发连接数。">
+<meta name="keywords" content="Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx 基本原理与配置">
+<meta property="og:url" content="http://foreverdewey.github.io/post/Nginx-Basic-Principles/index.html">
+<meta property="og:site_name" content="Dewey Liu">
+<meta property="og:description" content="一、选用 Nginx 的理由1）支持高并发连接 得益于 Nginx 使用最新的 epoll（Linux 2.6 内核）和 kqueue(FreeBSD) 网络 I/O 模型，官方测试 Nginx 可最高支持 5 万的并发连接，在实际的生产环境中，可实际支持 2~4 万的并发连接数。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-25T16:54:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx 基本原理与配置">
+<meta name="twitter:description" content="一、选用 Nginx 的理由1）支持高并发连接 得益于 Nginx 使用最新的 epoll（Linux 2.6 内核）和 kqueue(FreeBSD) 网络 I/O 模型，官方测试 Nginx 可最高支持 5 万的并发连接，在实际的生产环境中，可实际支持 2~4 万的并发连接数。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Dewey Liu" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://foreverdewey.github.io/post/Nginx-Basic-Principles/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <!--自定义看板娘-->
+<link rel="stylesheet" type="text/css" href="/js/src/live2d/assets/waifu.min.css">
+<script src="/js/src/live2d/assets/jquery.min.js"></script>
+<script src="/js/src/live2d/assets/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/js/src/aplayer/APlayer.min.css">
+<script src="/js/src/aplayer/APlayer.min.js"></script>
+<script src="/js/src/aplayer/Meting.min.js"></script>		
+  <title>nginx 基本原理与配置 | Dewey Liu</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89637345-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89637345-1');
+</script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+ <!--<a href="https://github.com/DeweyLiu"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>-->
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dewey Liu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-photos">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/photos/" rel="section"><i class="menu-item-icon fa fa-fw fa-camera-retro"></i> <br>相册</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://foreverdewey.github.io/post/Nginx-Basic-Principles/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dewey Liu">
+      <meta itemprop="description" content="We are all living as faithful to our ideas as children.">
+      <meta itemprop="image" content="/images/d6.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dewey Liu">
+    </span>
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">nginx 基本原理与配置
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-26 00:38:53" itemprop="dateCreated datePublished" datetime="2018-11-26T00:38:53+08:00">2018-11-26</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/post/Nginx-Basic-Principles/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/post/Nginx-Basic-Principles/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/post/Nginx-Basic-Principles/" class="leancloud_visitors" data-flag-title="nginx 基本原理与配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、选用-Nginx-的理由"><a href="#一、选用-Nginx-的理由" class="headerlink" title="一、选用 Nginx 的理由"></a>一、选用 Nginx 的理由</h3><p><strong>1）支持高并发连接</strong></p>
+<p>得益于 Nginx 使用最新的 epoll（Linux 2.6 内核）和 kqueue(FreeBSD) 网络 I/O 模型，官方测试 Nginx 可最高支持 5 万的并发连接，在实际的生产环境中，可实际支持 2~4 万的并发连接数。<br><a id="more"></a><br><strong>2）内存消耗低</strong></p>
+<p><strong>3）成本低</strong></p>
+<p><strong>4）配置简单</strong></p>
+<p><strong>5）支持 Rewrite 重写规则，能够根据域名、URL 的不同将 http 请求分发到不同的后端服务器群组。</strong></p>
+<p><strong>6）内置健康检查功能，如果 Nginx proxy 后端的某台服务器宕机了，不会影响前端访问</strong></p>
+<p><strong>7）节省带宽，支持 GZIP 压缩，可添加浏览器本地缓存的 header</strong></p>
+<p><strong>8）稳定性高，用于反向代理，宕机概率极低</strong></p>
+<p><strong>9）支持热部署，启动容易，几乎可以 7x24 小时不间断运行，且支持不间断服务的情况下，对软件进行升级。</strong></p>
+<h3 id="二、Nginx-的启停"><a href="#二、Nginx-的启停" class="headerlink" title="二、Nginx 的启停"></a>二、Nginx 的启停</h3><p>运行环境：max os, Nginx 通过 brew install 安装，路径为：/usr/local/Cellar/nginx/1.10.2_1/</p>
+<p><strong>1、启动</strong></p>
+<pre><code>nginx [-c path]
+</code></pre><p>-c 选项可用来指定配置文件路径， 如 nginx -c </p>
+<pre><code>/usr/local/etc/nginx.conf
+</code></pre><p><strong>2、停止</strong></p>
+<p>一般通过发送系统信号给 Nginx 主进程的方式来停止。可通过<br>ps -ef | grep nginx 查看进程号</p>
+<pre><code>$ ps -ef | grep nginx
+  501  3709     1   0  3:10下午 ??         0:00.00 nginx: master process nginx
+  501  3710  3709   0  3:10下午 ??         0:00.00 nginx: worker process
+  501  3711  3709   0  3:10下午 ??         0:00.01 nginx: worker process
+  501  3712  3709   0  3:10下午 ??         0:00.01 nginx: worker process
+  501  3713  3709   0  3:10下午 ??         0:00.01 nginx: worker process
+  501  3724   686   0  3:11下午 ttys001    0:00.00 grep nginx
+</code></pre><p>如上所示，3709 为主进程，3710 ~ 3713 为工作子进程。nginx.conf 配置文件中指定了 pid 文件的存放路径， 如 / usr/local/var/run/nginx.pid， 其中存放了当前 Nginx 运行的主进程号，可通过该进程号，来平滑停止 Nginx 服务。</p>
+<p><strong>1)  平滑停止</strong></p>
+<pre><code>$ kill -QUIT 3709
+$ ps -ef | grep nginx
+  501  3989   686   0  3:49下午 ttys001    0:00.00 grep nginx
+
+# 或者，通过pid文件获取主进程号来停止
+$ kill -QUIT `cat /usr/local/var/run/nginx.pid`
+2）快速停止
+
+$ kill -TERM 3709
+$ ps -ef | grep nginx
+  501  3989   686   0  3:49下午 ttys001    0:00.00 grep nginx
+
+# 或者，通过pid文件获取主进程号来停止
+$ kill -TERM `cat /usr/local/var/run/nginx.pid`
+
+# 另一种方式
+$ kill -INT 3709
+$ ps -ef | grep nginx
+  501  3989   686   0  3:49下午 ttys001    0:00.00 grep nginx
+
+# 或者，通过pid文件获取主进程号来停止
+$ kill -INT `cat /usr/local/var/run/nginx.pid`
+3）强制停止
+
+$ pkill -9 nginx
+$ ps -ef | grep nginx
+  501  4081   686   0  3:57下午 ttys001    0:00.00 grep nginx
+</code></pre><p><strong>3、平滑重启</strong></p>
+<p>如果修改了配置文件 nginx.conf，想重启 Nginx，需要发送信号给 Nginx 主进程来实现。</p>
+<pre><code>$ ps -ef | grep nginx
+  501  4188     1   0  4:13下午 ??         0:00.00 nginx: master process nginx
+  501  4189  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4190  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4191  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4192  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4195   686   0  4:13下午 ttys001    0:00.00 grep nginx
+
+$ kill -HUP `cat /usr/local/var/run/nginx.pid`
+
+$ ps -ef | grep nginx
+  501  4188     1   0  4:13下午 ??         0:00.01 nginx: master process nginx
+  501  4201  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4202  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4203  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4204  4188   0  4:13下午 ??         0:00.00 nginx: worker process
+  501  4206   686   0  4:13下午 ttys001    0:00.00 grep nginx
+</code></pre><p>可以看出，重启的只是工作进程，当接收到 HUP 信号后，当前工作进程会关闭监听套接字，并继续为当前连接的客户端服务，当所有客户端服务完成后，旧的工作进程关闭。</p>
+<p><strong>4、其他信号</strong></p>
+<p><strong>USR1: 重新打开日志文件，切割日志文件时有用</strong></p>
+<p><strong>USR2: 平滑升级可执行程序</strong></p>
+<p><strong>WINCTH: 从容关闭工作进程</strong></p>
+<pre><code>$ kill -WINCH `cat /usr/local/var/run/nginx.pid`
+$ ps -ef | grep nginx
+  501  4188     1   0  4:13下午 ??         0:00.01 nginx: master process nginx
+  501  4258   686   0  4:21下午 ttys001    0:00.00 grep nginx
+</code></pre><h3 id="三、Nginx-基本配置"><a href="#三、Nginx-基本配置" class="headerlink" title="三、Nginx 基本配置"></a>三、Nginx 基本配置</h3><p><strong>1、虚拟主机配置</strong></p>
+<p>虚拟主机提供了同一台服务器，同一个 Nginx 进程上运行多个网站的功能，Nginx 支持配置多种类型的虚拟主机： 基于 IP 的， 基于域名的， 基于端口号的。</p>
+<p>在 nginx.conf 中，一台简化的虚拟主机配置如下：</p>
+<pre><code>http {
+
+    server {
+        listen       8080;
+        server_name  localhost;
+
+        access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+          }
+    }
+}
+</code></pre><p>基于 IP 的虚拟主机配置</p>
+<p>通过 ifconfig 和 route 命令为当前服务器主机添加 IP 别名，如下：</p>
+<pre><code>$ ifconfig eth0:1 192.168.1.102 broadcast 192.168.1.255 netmask 255.255.255.0 up
+
+$ route add -host 192.168.1.102 dev eth0:1
+接下来分别对 192.168.1.101 和 192.168.1.102 配置虚拟主机
+
+http {
+    # 第一个虚拟主机
+    server {
+        # 监听的IP和端口
+        listen      192.168.1.101:8080;
+        # 主机名称
+        server_name  192.168.1.101;
+        # 访问日志文件存放路径
+        access_log  logs/host.access.log  main;
+
+        location / {
+            # html网页文件存放目录
+            root   /data0/htmldoc/server1;
+            # 默认首页文件，从左至右，找不到index.html，就查找index.htm，都查找不到则报错
+            index  index.html index.htm;
+          }
+    }
+
+    # 第二个虚拟主机
+    server {
+        listen       192.168.1.102:8080;
+        server_name  192.168.1.102;
+
+        access_log  logs/host.access.log  main;
+
+        location / {
+            root   /data0/htmldoc/server2;
+            index  index.html index.htm;
+          }
+    }
+}
+</code></pre><p>基于域名的虚拟主机配置</p>
+<p>配置你的 DNS 服务器，将你的 IP 映射到不同的域名即可实现，可以有效解决 IP 地址不足的问题。</p>
+<pre><code>http {
+    # 第一个虚拟主机
+    server {
+        # 监听的IP和端口
+        listen      8080;
+        # 主机名称
+        server_name  aaa.ssl.com;
+        # 访问日志文件存放路径
+        access_log  logs/host.access.log  main;
+
+        location / {
+            # html网页文件存放目录
+            root   /data0/htmldoc/server1;
+            # 默认首页文件，从左至右，找不到index.html，就查找index.htm，都查找不到则报错
+            index  index.html index.htm;
+          }
+    }
+
+    # 第二个虚拟主机
+    server {
+        listen       8080;
+        server_name  bbb.ssl.com;
+
+        access_log  logs/host.access.log  main;
+
+        location / {
+            root   /data0/htmldoc/server2;
+            index  index.html index.htm;
+          }
+    }
+}
+</code></pre><p><strong>2、日志文件配置与切割</strong></p>
+<p>1）配置 log_format 日志格式 log_format name format [format..]</p>
+<pre><code>log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;&apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;&apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+</code></pre><p>name 用来指定日志格式的名称，保持唯一性。</p>
+<p>remoteaddr 用于记录远程客户端 IP 地址，还有另外一个变量http_x_forwarded_for 用来记录用户的 X-Forwarded-For IP 地址。</p>
+<p>2）配置日志文件存放路径</p>
+<p>access_log path [format [ buffer=size | off]]</p>
+<p>path: 存放路径</p>
+<p>format: 日志格式名称，log_format 中设置的 name</p>
+<p>buffer: 内存缓冲区大小</p>
+<p>off: 表示关闭日志记录</p>
+<p>如： access_log /data0/logs/log1 combined buffer=32k;</p>
+<p><strong>3) 日志切割</strong></p>
+<p>a) 重命名原日志文件，然后向 Nginx 主进程发送 USR1 信号，让 Nginx 重新生成一个新的日志文件。</p>
+<p>mv /data0/logs/access.log /data0/logs/20170716.log</p>
+<p>kill -USR1 <code>cat /usr/local/var/run/nginx.pid</code></p>
+<p>b）按天定时切割日志文件的方式</p>
+<pre><code># !/bin/bash
+# 这个脚本须在每天的00：00运行, 保存为cut_nginx.log.sh
+
+# Nginx日志文件的存放路径
+logs_path=&quot;/data0/logs&quot;
+
+mkdir -p ${logs_path}$(date -d &quot;yesterday&quot;+&quot;%Y&quot;)/$(date -d &quot;yesterday&quot;+&quot;%m&quot;)/
+
+mv ${logs_path}access.log ${logs_path}$(date -d &quot;yesterday&quot;+&quot;%Y&quot;)/$(date -d &quot;yesterday&quot;+&quot;%m&quot;)/access_$(date -d &quot;yesterday&quot;+&quot;%Y%m%d&quot;).log
+kill -USR1 `cat /usr/local/var/nginx/nginx.pid`
+配置 crontab 每天凌晨 00:00 定时执行该脚本
+
+crontab -e
+
+输入：
+
+00 00 * * * /bin/bash /usr/local/var/nginx/sbin/cut_nginx.log.sh
+</code></pre><p><strong>3、压缩配置</strong></p>
+<p>gzip 压缩后，页面大小可变为原来的 30% 甚至更小，这样用户浏览页面时速度会快很多。</p>
+<p><strong>4、自动列目录</strong></p>
+<pre><code>location / {
+            # html网页文件存放目录
+            root   /Users/qwe/Desktop;
+            # 自动列出目录
+            autoindex on;
+          }
+</code></pre><p><strong>5、浏览器本地缓存设置</strong></p>
+<p>浏览器将用户最近请求过的页面存储到本地磁盘，当用户再次访问时，可以直接从本地磁盘显示文档，加速页面浏览速度，节约网络资源。</p>
+<p>浏览器缓存通过 expires 指令输出 header 头来实现 。</p>
+<p>语法： expires [time | epoch | max | off]</p>
+<p>默认值： expires off</p>
+<p>作用域：http, server, location</p>
+<p>用途： 使用本指令可以控制 HTTP 应答中的 “Expires” 和“Cache-Control”</p>
+<p>epoch 指定 Expires 值为 1 January，1970，00：00：01 GMT</p>
+<p>max 指定 Expires 值为 31 December，2037 23：59：59 GMT， Cache-Control 值为 10 年</p>
+<p>-1 指定 “Expires” 值为服务器当前时间，即永远过期。</p>
+<p>Cache-Control 的值由你指定的时间来决定， 负数表示 no-cache， 正数或零为你指定时间的秒数。</p>
+<p>”off“表示不修改 “Expires” 和”Cache-Control“的值。</p>
+<p>一般对常见格式的图片、Flash 文件缓存 30 天，对 js、css 文件缓存 1 小时。如下：</p>
+<pre><code>location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+         expires 30d;
+ }
+
+location ~ .*\.(js|css)${
+         expires 1h;
+ }
+</code></pre><p>   原文：<a href="https://www.cnblogs.com/java-wgm/p/7160530.html" target="_blank" rel="noopener">https://www.cnblogs.com/java-wgm/p/7160530.html</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+      
+    </div>
+    <div>
+      
+        
+
+      
+    </div>
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>我们都像孩子一样忠实的为自己的想法而活着！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Dewey Liu 微信">
+        <p>微信</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Dewey Liu 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"><i class="fa fa-tag"></i> Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/download-file-method/" rel="next" title="已知一个下载文件的后端接口，前端如何请求该接口，实现点击按钮、下载文件到本地。">
+                <i class="fa fa-chevron-left"></i> 已知一个下载文件的后端接口，前端如何请求该接口，实现点击按钮、下载文件到本地。
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/redis-five-type-usage-method/" rel="prev" title="redis五大类型用法">
+                redis五大类型用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/d6.gif" alt="Dewey Liu">
+            
+              <p class="site-author-name" itemprop="name">Dewey Liu</p>
+              <p class="site-description motion-element" itemprop="description">We are all living as faithful to our ideas as children.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/DeweyLiu" title="GitHub &rarr; https://github.com/DeweyLiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/y759962464" title="Weibo &rarr; https://weibo.com/y759962464" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://instagram.com/dewey_liu" title="Instagram &rarr; https://instagram.com/dewey_liu" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、选用-Nginx-的理由"><span class="nav-number">1.</span> <span class="nav-text">一、选用 Nginx 的理由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、Nginx-的启停"><span class="nav-number">2.</span> <span class="nav-text">二、Nginx 的启停</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、Nginx-基本配置"><span class="nav-number">3.</span> <span class="nav-text">三、Nginx 基本配置</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dewey Liu</span>
+
+  
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a></div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+  
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+<!---->
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/jquery-lazyload@1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.4.1/dist/jquery.fancybox.min.js"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+<script src="/js/src/photoswipe.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'MJFl34UId7bERw6zMfY64eBv-MdYXbMMI',
+        appKey: 'SBcM2bkz8gFfwQyp0fnjN7wV',
+        placeholder: 'Just go go',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script src="/js/src/js.cookie.js?v=6.6.0"></script>
+  <script src="/js/src/scroll-cookie.js?v=6.6.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script> -->
+  <script type="text/javascript" src="/js/src/click.js"></script>
+  <div class="waifu">
+        <div class="waifu-tips"></div>
+        <canvas id="live2d" class="live2d"></canvas>
+        <div class="waifu-tool">
+            <span class="fui-home"></span>
+            <span class="fui-chat"></span>
+            <span class="fui-eye"></span>
+            <span class="fui-user"></span>
+            <span class="fui-photo"></span>
+            <span class="fui-info-circle"></span>
+            <span class="fui-cross"></span>
+        </div>
+    </div>
+    
+<script src="/js/src/live2d/assets/waifu-tips.min.js"></script>
+<script src="/js/src/live2d/assets/live2d.min.js"></script>
+
+<script type="text/javascript">
+   // live2d_settings['hitokotoAPI'] = 'hitokoto.cn';
+    live2d_settings['modelId'] = 1;
+    live2d_settings['modelTexturesId'] = 53;
+    live2d_settings['modelStorage'] = false;
+    live2d_settings['canCloseLive2d'] = true;
+    live2d_settings['canTurnToHomePage'] = false;
+   // live2d_settings['waifuSize'] = '600x535';
+    live2d_settings['waifuTipsSize'] = '280x80';
+    live2d_settings['waifuFontSize'] = '12px';
+    live2d_settings['waifuToolFont'] = '16px';
+    live2d_settings['waifuToolLine'] = '25px';
+    live2d_settings['waifuToolTop'] = '0px';
+    live2d_settings['waifuDraggable'] = 'axis-x';
+    live2d_settings['waifuEdgeSide']  = "right:30";
+    initModel("/js/src/live2d/assets/waifu-tips.json")
+</script>
+
+<script>!function(o){var i=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function c(t,e){var n=new Image,o=t.getAttribute("data-original");n.onload=function(){t.src=o,e&&e()},n.src=o}function n(){for(var t=0;t<i.length;t++)e=i[t],void 0,0<=(n=e.getBoundingClientRect()).top&&0<=n.left&&n.top<=(o.innerHeight||document.documentElement.clientHeight)&&c(i[t],function(){i.splice(t,t)});var e,n;console.log("trigger")}n(),o.addEventListener("scroll",function(){var t,e;t=n,e=o,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>
