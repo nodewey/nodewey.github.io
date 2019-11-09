@@ -116,8 +116,8 @@
         var data = res.list[j].arr;
         var liTmpl = "";
         for (var i = 0, len = data.link.length; i < len; i++) {
-          /*var minSrc = 'https://raw.githubusercontent.com/DeweyLiu/blog-photos-master/master/min_photos/' + data.link[i];
-          var src = 'https://raw.githubusercontent.com/DeweyLiu/blog-photos-master/master/photos/' + data.link[i];*/
+          /*var minSrc = 'https://raw.githubusercontent.com/XXXXXX/blog-photos-master/master/min_photos/' + data.link[i];
+          var src = 'https://raw.githubusercontent.com/XXXXX/blog-photos-master/master/photos/' + data.link[i];*/
           var minSrc = 'https://coding.net/u/deweyliu/p/blog-photos/git/raw/master/min_photos/' + data.link[i];
           var src = 'https://coding.net/u/deweyliu/p/blog-photos/git/raw/master/com_photos/' + data.link[i];
           var type = data.type[i];
