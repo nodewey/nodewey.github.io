@@ -1,5 +1,5 @@
 /******/
-(function(modules) { // webpackBootstrap
+(function (modules) { // webpackBootstrap
   /******/ // The module cache
   /******/
   var installedModules = {};
@@ -39,6 +39,7 @@
     return module.exports;
     /******/
   }
+
   /******/
   /******/
   /******/ // expose the modules object (__webpack_modules__)
@@ -63,7 +64,7 @@
 ([
   /* 0 */
   /***/
-  function(module, exports, __webpack_require__) {
+  function (module, exports, __webpack_require__) {
 
     'use strict';
 
@@ -175,7 +176,7 @@
         var xhr = new XMLHttpRequest();
         xhr.open('GET', './data.json?t=' + +new Date(), true);
 
-        xhr.onload = function() {
+        xhr.onload = function () {
           if (this.status >= 200 && this.status < 300) {
             var res = JSON.parse(this.response);
             searchData = res;
@@ -185,7 +186,7 @@
           }
         };
 
-        xhr.onerror = function() {
+        xhr.onerror = function () {
           console.error(this.statusText);
         };
 
@@ -197,7 +198,7 @@
 
     var Ins = {
       init: function init() {
-        loadData(function(data) {
+        loadData(function (data) {
           render(data);
         });
       }
@@ -211,10 +212,10 @@
   },
   /* 1 */
   /***/
-  function(module, exports, __webpack_require__) {
+  function (module, exports, __webpack_require__) {
 
     /* WEBPACK VAR INJECTION */
-    (function(global) {
+    (function (global) {
       'use strict';
 
       var inViewport = __webpack_require__(3);
@@ -286,7 +287,7 @@
         }
 
         var original = global[fullname].prototype.getAttribute;
-        global[fullname].prototype.getAttribute = function(name) {
+        global[fullname].prototype.getAttribute = function (name) {
           if (name === 'src') {
             var realSrc;
             for (var i = 0, max = lazyAttrs.length; i < max; i++) {
@@ -317,7 +318,8 @@
 
       // http://webreflection.blogspot.fr/2011/06/partial-polyfills.html
       function indexOf(value) {
-        for (var i = this.length; i-- && this[i] !== value;) {}
+        for (var i = this.length; i-- && this[i] !== value;) {
+        }
         return i;
       }
 
@@ -325,7 +327,7 @@
 
       // export default impush;
       /* WEBPACK VAR INJECTION */
-    }.call(exports, (function() {
+    }.call(exports, (function () {
       return this;
     }())))
 
@@ -333,7 +335,7 @@
   },
   /* 2 */
   /***/
-  function(module, exports) {
+  function (module, exports) {
 
     'use strict';
 
@@ -409,7 +411,7 @@
         var eTarget = e.target || e.srcElement;
 
         // find root element of slide
-        var clickedListItem = closest(eTarget, function(el) {
+        var clickedListItem = closest(eTarget, function (el) {
           return el.tagName && el.tagName.toUpperCase() === 'FIGURE';
         });
 
@@ -581,10 +583,11 @@
       }
     };
 
-    var Viewer = function() {
+    var Viewer = function () {
       function init() {
         initPhotoSwipeFromDOM('.photos');
       }
+
       return {
         init: init
       };
@@ -596,10 +599,10 @@
   },
   /* 3 */
   /***/
-  function(module, exports) {
+  function (module, exports) {
 
     /* WEBPACK VAR INJECTION */
-    (function(global) {
+    (function (global) {
       module.exports = inViewport;
 
       var instances = [];
@@ -640,7 +643,7 @@
 
       function debounce(func, wait, immediate) {
         var timeout;
-        return function() {
+        return function () {
           var context = this,
             args = arguments;
           var callNow = immediate && !timeout;
@@ -656,19 +659,19 @@
       }
 
       // https://github.com/jquery/sizzle/blob/3136f48b90e3edc84cbaaa6f6f7734ef03775a07/sizzle.js#L708
-      var contains = function() {
+      var contains = function () {
         if (!global.document) {
           return true;
         }
         return global.document.documentElement.compareDocumentPosition ?
-          function(a, b) {
+          function (a, b) {
             return !!(a.compareDocumentPosition(b) & 16);
           } :
           global.document.documentElement.contains ?
-            function(a, b) {
+            function (a, b) {
               return a !== b && (a.contains ? a.contains(b) : false);
             } :
-            function(a, b) {
+            function (a, b) {
               while (b = b.parentNode) {
                 if (b === a) {
                   return true;
@@ -811,7 +814,7 @@
         }
 
         function checkAll(cb) {
-          return function() {
+          return function () {
             for (var i = watches.length - 1; i >= 0; i--) {
               cb.apply(this, watches[i]);
             }
@@ -856,7 +859,7 @@
       }
 
       /* WEBPACK VAR INJECTION */
-    }.call(exports, (function() {
+    }.call(exports, (function () {
       return this;
     }())))
 
