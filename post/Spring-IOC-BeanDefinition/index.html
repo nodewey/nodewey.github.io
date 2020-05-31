@@ -168,7 +168,7 @@
 <meta property="og:site_name" content="Codewey">
 <meta property="og:description" content="前言之前一直想系统的拜读一下 spring 的源码，看看它到底是如何吸引身边的大神们对它的设计赞不绝口，虽然每天工作很忙，每天下班后总感觉脑子内存溢出，想去放松一下，但总是以此为借口，恐怕会一直拖下去。所以每天下班虽然有些疲惫，但还是按住自己啃下这块硬骨头。 spring 源码这种东西真的是一回生二回熟，第一遍会被各种设计模式和繁杂的方法调用搞得晕头转向，不知道看到的这些方法调用的是哪个父类的实现">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-31T10:38:29.613Z">
+<meta property="og:updated_time" content="2020-05-31T10:46:17.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BeanDefinition的资源定位过程">
 <meta name="twitter:description" content="前言之前一直想系统的拜读一下 spring 的源码，看看它到底是如何吸引身边的大神们对它的设计赞不绝口，虽然每天工作很忙，每天下班后总感觉脑子内存溢出，想去放松一下，但总是以此为借口，恐怕会一直拖下去。所以每天下班虽然有些疲惫，但还是按住自己啃下这块硬骨头。 spring 源码这种东西真的是一回生二回熟，第一遍会被各种设计模式和繁杂的方法调用搞得晕头转向，不知道看到的这些方法调用的是哪个父类的实现">
@@ -592,6 +592,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前一直想系统的拜读一下 spring 的源码，看看它到底是如何吸引身边的大神们对它的设计赞不绝口，虽然每天工作很忙，每天下班后总感觉脑子内存溢出，想去放松一下，但总是以此为借口，恐怕会一直拖下去。所以每天下班虽然有些疲惫，但还是按住自己啃下这块硬骨头。</p>
 <p>spring 源码这种东西真的是一回生二回熟，第一遍会被各种设计模式和繁杂的方法调用搞得晕头转向，不知道看到的这些方法调用的是哪个父类的实现（IoC 相关的类图实在太复杂咯，继承体系又深又广），但当你耐下心来多走几遍，会发现越看越熟练，每次都能 get 到新的点。</p>
+<a id="more"></a>
 <p>另外，对于第一次看 spring 源码的同学，建议先在 B 站上搜索相关视频看一下，然后再结合计文柯老师的《spring 技术内幕》深入理解，最后再输出自己的理解（写博文或部门内部授课）加强印象。</p>
 <p>首先对于我们新手来说，还是从我们最常用的两个 IoC 容器开始分析，这次我们先分析 FileSystemXmlApplicationContext 这个 IoC 容器的具体实现，ClassPathXmlApplicationContext 留着下次讲解。</p>
 <p>（PS：可以结合我 GitHub 上对 Spring 框架源码的翻译注释一起看，会更有助于各位同学的理解。地址：<br>spring-beans <a href="https://github.com/AmyliaY/spring-beans-reading" target="_blank" rel="noopener">https://github.com/AmyliaY/spring-beans-reading</a><br>spring-context <a href="https://github.com/AmyliaY/spring-context-reading" target="_blank" rel="noopener">https://github.com/AmyliaY/spring-context-reading</a><br>）</p>
@@ -614,7 +615,7 @@
 <p>其中的 getResourceByPath(location) 方法的实现则是在 FileSystemXmlApplicationContext 中完成的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 实例化一个 FileSystemResource 并返回，以便后续对资源的 IO 操作</span><br><span class="line"> * 本方法是在 DefaultResourceLoader 的 getResource() 方法中被调用的，</span><br><span class="line"> */</span><br><span class="line">@Override</span><br><span class="line">protected Resource getResourceByPath(String path) &#123;</span><br><span class="line">    if (path != null &amp;&amp; path.startsWith(&quot;/&quot;)) &#123;</span><br><span class="line">        path = path.substring(1);</span><br><span class="line">    &#125;</span><br><span class="line">    return new FileSystemResource(path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>至此，我们可以看到，FileSystemXmlApplicationContext 的 getResourceByPath() 方法返回了一个 FileSystemResource 对象，接下来 spring 就可以对这个对象进行相关的 I/O 操作，进行 BeanDefinition 的读取和载入了。</p>
-<p><a href="[https://github.com/doocs/source-code-hunter/blob/master/docs/Spring/IoC/1%E3%80%81BeanDefinition%E7%9A%84%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E8%BF%87%E7%A8%8B.md](https://github.com/doocs/source-code-hunter/blob/master/docs/Spring/IoC/1、BeanDefinition的资源定位过程.md">原文</a>)</p>
+<p><a href="https://github.com/doocs/source-code-hunter/blob/master/docs/Spring/IoC/1%E3%80%81BeanDefinition%E7%9A%84%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E8%BF%87%E7%A8%8B.md" target="_blank" rel="noopener">原文</a></p>
 
       
     </div>
