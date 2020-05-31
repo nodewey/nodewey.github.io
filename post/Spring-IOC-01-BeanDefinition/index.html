@@ -164,11 +164,11 @@
 <meta name="keywords" content="Spring,IOC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BeanDefinition的资源定位过程">
-<meta property="og:url" content="http://codewey.com/post/Spring-IOC-BeanDefinition/index.html">
+<meta property="og:url" content="http://codewey.com/post/Spring-IOC-01-BeanDefinition/index.html">
 <meta property="og:site_name" content="Codewey">
 <meta property="og:description" content="前言之前一直想系统的拜读一下 spring 的源码，看看它到底是如何吸引身边的大神们对它的设计赞不绝口，虽然每天工作很忙，每天下班后总感觉脑子内存溢出，想去放松一下，但总是以此为借口，恐怕会一直拖下去。所以每天下班虽然有些疲惫，但还是按住自己啃下这块硬骨头。 spring 源码这种东西真的是一回生二回熟，第一遍会被各种设计模式和繁杂的方法调用搞得晕头转向，不知道看到的这些方法调用的是哪个父类的实现">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-31T10:46:17.525Z">
+<meta property="og:updated_time" content="2020-05-31T10:52:32.424Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BeanDefinition的资源定位过程">
 <meta name="twitter:description" content="前言之前一直想系统的拜读一下 spring 的源码，看看它到底是如何吸引身边的大神们对它的设计赞不绝口，虽然每天工作很忙，每天下班后总感觉脑子内存溢出，想去放松一下，但总是以此为借口，恐怕会一直拖下去。所以每天下班虽然有些疲惫，但还是按住自己啃下这块硬骨头。 spring 源码这种东西真的是一回生二回熟，第一遍会被各种设计模式和繁杂的方法调用搞得晕头转向，不知道看到的这些方法调用的是哪个父类的实现">
@@ -180,7 +180,7 @@
 
 
 
-  <link rel="canonical" href="http://codewey.com/post/Spring-IOC-BeanDefinition/">
+  <link rel="canonical" href="http://codewey.com/post/Spring-IOC-01-BeanDefinition/">
 
 
 
@@ -475,7 +475,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://codewey.com/post/Spring-IOC-BeanDefinition/">
+    <link itemprop="mainEntityOfPage" href="http://codewey.com/post/Spring-IOC-01-BeanDefinition/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Codewey">
@@ -550,8 +550,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/post/Spring-IOC-BeanDefinition/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/post/Spring-IOC-BeanDefinition/" itemprop="commentCount"></span>
+                <a href="/post/Spring-IOC-01-BeanDefinition/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/post/Spring-IOC-01-BeanDefinition/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -559,7 +559,7 @@
 
           
           
-             <span id="/post/Spring-IOC-BeanDefinition/" class="leancloud_visitors" data-flag-title="BeanDefinition的资源定位过程">
+             <span id="/post/Spring-IOC-01-BeanDefinition/" class="leancloud_visitors" data-flag-title="BeanDefinition的资源定位过程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -711,6 +711,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/post/Spring-IOC-02-BeanDefinition/" rel="prev" title="将 bean 解析封装成 BeanDefinition">
+                将 bean 解析封装成 BeanDefinition <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -785,7 +789,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

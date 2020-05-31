@@ -861,7 +861,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://codewey.com/post/Spring-IOC-BeanDefinition/">
+    <link itemprop="mainEntityOfPage" href="http://codewey.com/post/Spring-IOC-02-BeanDefinition/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Codewey">
@@ -880,7 +880,198 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/post/Spring-IOC-BeanDefinition/" class="post-title-link" itemprop="http://codewey.com/index.html">BeanDefinition的资源定位过程</a>
+                <a href="/post/Spring-IOC-02-BeanDefinition/" class="post-title-link" itemprop="http://codewey.com/index.html">将 bean 解析封装成 BeanDefinition</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-12-13 12:12:16" itemprop="dateCreated datePublished" datetime="2019-12-13T12:12:16+08:00">2019-12-13</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/JavaNotes/" itemprop="url" rel="index"><span itemprop="name">JavaNotes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/post/Spring-IOC-02-BeanDefinition/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/post/Spring-IOC-02-BeanDefinition/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/post/Spring-IOC-02-BeanDefinition/" class="leancloud_visitors" data-flag-title="将 bean 解析封装成 BeanDefinition">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接着上一篇的 BeanDefinition 资源定位开始讲。Spring IoC 容器 BeanDefinition 解析过程就是把用户在配置文件中配置的 bean，解析并封装成 IoC 容器可以装载的 BeanDefinition 对象，BeanDefinition 是 Spring 定义的基本数据结构，其中的属性与配置文件中 bean 的属性相对应。</p>
+		  
+		 
+		
+		
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/post/Spring-IOC-02-BeanDefinition/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://codewey.com/post/Spring-IOC-01-BeanDefinition/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Codewey">
+      <meta itemprop="description" content="We are all living as faithful to our ideas as children.">
+      <meta itemprop="image" content="/images/d6.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Codewey">
+    </span>
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/post/Spring-IOC-01-BeanDefinition/" class="post-title-link" itemprop="http://codewey.com/index.html">BeanDefinition的资源定位过程</a>
               
             
           </h2>
@@ -938,8 +1129,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/post/Spring-IOC-BeanDefinition/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/post/Spring-IOC-BeanDefinition/" itemprop="commentCount"></span>
+                <a href="/post/Spring-IOC-01-BeanDefinition/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/post/Spring-IOC-01-BeanDefinition/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -947,7 +1138,7 @@
 
           
           
-             <span id="/post/Spring-IOC-BeanDefinition/" class="leancloud_visitors" data-flag-title="BeanDefinition的资源定位过程">
+             <span id="/post/Spring-IOC-01-BeanDefinition/" class="leancloud_visitors" data-flag-title="BeanDefinition的资源定位过程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -988,7 +1179,7 @@
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/post/Spring-IOC-BeanDefinition/#more" rel="contents">
+              <a class="btn" href="/post/Spring-IOC-01-BeanDefinition/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -2207,200 +2398,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://codewey.com/post/slf4j&log4j/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Codewey">
-      <meta itemprop="description" content="We are all living as faithful to our ideas as children.">
-      <meta itemprop="image" content="/images/d6.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Codewey">
-    </span>
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/post/slf4j&log4j/" class="post-title-link" itemprop="http://codewey.com/index.html">slf4j比log4j更优秀的一点是可以使用占位符</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-12-14 16:48:13" itemprop="dateCreated datePublished" datetime="2018-12-14T16:48:13+08:00">2018-12-14</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/post/slf4j&log4j/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/post/slf4j&log4j/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/post/slf4j&log4j/" class="leancloud_visitors" data-flag-title="slf4j比log4j更优秀的一点是可以使用占位符">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Views: </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>对于log4j来说，使用logger.debug()消息的时候，如果需要连接字符串，则很麻烦，需要类似这样：</p>
-<pre><code>private static Logger logger = Logger.getLogger(ExchangeService.class);
-logger.debug(&quot;你好，我是&quot;+name+&quot;,你好呀&quot;);
-</code></pre>
-		  
-		 
-		
-		
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/post/slf4j&log4j/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    <div>
-      
-    </div>
-    <div>
-      
-    </div>
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2450,7 +2447,7 @@ logger.debug(&quot;你好，我是&quot;+name+&quot;,你好呀&quot;);
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
