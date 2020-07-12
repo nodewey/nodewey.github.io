@@ -118,8 +118,8 @@
                 for (var i = 0, len = data.link.length; i < len; i++) {
                     /*var minSrc = 'https://raw.githubusercontent.com/xxxxxx/blog-photos-master/master/min_photos/' + data.link[i];
                     var src = 'https://raw.githubusercontent.com/xxxxxx/blog-photos-master/master/photos/' + data.link[i];*/
-                    var minSrc = 'https://codewey.coding.net/p/BlogPhotos/d/BlogPhotos/git/raw/master/min_photos/' + data.link[i];
-                    var src = 'https://codewey.coding.net/p/BlogPhotos/d/BlogPhotos/git/raw/master/com_photos/' + data.link[i];
+                    var minSrc = 'https://codewey.coding.net/p/BlogPhotos/d/blog_pic/git/raw/master/min_photos/' + data.link[i];
+                    var src = 'https://codewey.coding.net/p/BlogPhotos/d/blog_pic/git/raw/master/com_photos/' + data.link[i];
                     var type = data.type[i];
                     var target = src + (type === 'video' ? '.mp4' : '.jpg');
                     src += '';
