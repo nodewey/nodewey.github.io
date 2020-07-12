@@ -241,9 +241,9 @@
       <category term="笔记" scheme="http://codewey.com/categories/%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="java" scheme="http://codewey.com/tags/java/"/>
-    
       <category term="SpringBoot" scheme="http://codewey.com/tags/SpringBoot/"/>
+    
+      <category term="java" scheme="http://codewey.com/tags/java/"/>
     
   </entry>
   
@@ -313,9 +313,9 @@
       <category term="java" scheme="http://codewey.com/categories/java/"/>
     
     
-      <category term="java" scheme="http://codewey.com/tags/java/"/>
-    
       <category term="SpringBoot" scheme="http://codewey.com/tags/SpringBoot/"/>
+    
+      <category term="java" scheme="http://codewey.com/tags/java/"/>
     
       <category term="SpringCloud" scheme="http://codewey.com/tags/SpringCloud/"/>
     
